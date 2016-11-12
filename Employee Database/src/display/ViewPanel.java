@@ -25,10 +25,10 @@ public class ViewPanel extends JPanel {
 	public ViewPanel() {
 		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{225, 1, 0, 0};
-		gridBagLayout.rowHeights = new int[]{1, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] {225, 30, 0};
+		gridBagLayout.rowHeights = new int[] {1, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		JList list = new JList();
