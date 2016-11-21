@@ -58,7 +58,7 @@ public class MainMenu extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] {0, 0};
 		gbl_contentPane.rowHeights = new int[] {0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0};
+		gbl_contentPane.columnWeights = new double[]{1.0, 0.0};
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -72,7 +72,7 @@ public class MainMenu extends JFrame {
 		contentPane.add(GlobalContainer, gbc_GlobalContainer);
 		GridBagLayout gbl_GlobalContainer = new GridBagLayout();
 		gbl_GlobalContainer.columnWidths = new int[] {53, 57, 55};
-		gbl_GlobalContainer.rowHeights = new int[] {0, 0};
+		gbl_GlobalContainer.rowHeights = new int[] {10, 10};
 		gbl_GlobalContainer.columnWeights = new double[]{0.0, 1.0, 0.0};
 		gbl_GlobalContainer.rowWeights = new double[]{0.0, 0.0};
 		GlobalContainer.setLayout(gbl_GlobalContainer);
@@ -80,7 +80,7 @@ public class MainMenu extends JFrame {
 		JButton newButton = new JButton("New");
 		GridBagConstraints gbc_newButton = new GridBagConstraints();
 		gbc_newButton.fill = GridBagConstraints.BOTH;
-		gbc_newButton.insets = new Insets(0, 3, 0, 5);
+		gbc_newButton.insets = new Insets(0, 0, 0, 5);
 		gbc_newButton.gridx = 0;
 		gbc_newButton.gridy = 1;
 		GlobalContainer.add(newButton, gbc_newButton);
@@ -96,7 +96,7 @@ public class MainMenu extends JFrame {
 		JButton loadDatabaseButton = new JButton("Load");
 		GridBagConstraints gbc_loadDatabaseButton = new GridBagConstraints();
 		gbc_loadDatabaseButton.fill = GridBagConstraints.BOTH;
-		gbc_loadDatabaseButton.insets = new Insets(0, 3, 0, 5);
+		gbc_loadDatabaseButton.insets = new Insets(0, 3, 0, 0);
 		gbc_loadDatabaseButton.gridx = 2;
 		gbc_loadDatabaseButton.gridy = 1;
 		GlobalContainer.add(loadDatabaseButton, gbc_loadDatabaseButton);
@@ -118,8 +118,8 @@ public class MainMenu extends JFrame {
 		gbc_ActionContainer.gridy = 0;
 		contentPane.add(ActionContainer, gbc_ActionContainer);
 		GridBagLayout gbl_ActionContainer = new GridBagLayout();
-		gbl_ActionContainer.columnWidths = new int[] {40, 51, 63, 51, 10, 33, 86};
-		gbl_ActionContainer.rowHeights = new int[] {30, 0};
+		gbl_ActionContainer.columnWidths = new int[] {0, 0, 0, 0, 0, 0};
+		gbl_ActionContainer.rowHeights = new int[] {10, 10};
 		gbl_ActionContainer.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_ActionContainer.rowWeights = new double[]{0.0, 0.0};
 		ActionContainer.setLayout(gbl_ActionContainer);
@@ -127,14 +127,13 @@ public class MainMenu extends JFrame {
 		JLabel employeeControlLabel = new JLabel("Employee Controls");
 		GridBagConstraints gbc_employeeControlLabel = new GridBagConstraints();
 		gbc_employeeControlLabel.gridwidth = 7;
-		gbc_employeeControlLabel.insets = new Insets(5, 5, 5, 5);
 		gbc_employeeControlLabel.gridx = 0;
 		gbc_employeeControlLabel.gridy = 0;
 		ActionContainer.add(employeeControlLabel, gbc_employeeControlLabel);
 		
 		JButton addButton = new JButton("Add");
 		GridBagConstraints gbc_addButton = new GridBagConstraints();
-		gbc_addButton.insets = new Insets(0, 3, 0, 5);
+		gbc_addButton.insets = new Insets(0, 0, 0, 5);
 		gbc_addButton.fill = GridBagConstraints.BOTH;
 		gbc_addButton.gridx = 0;
 		gbc_addButton.gridy = 1;
@@ -174,7 +173,7 @@ public class MainMenu extends JFrame {
 		
 		searchField = new JTextField();
 		GridBagConstraints gbc_searchField = new GridBagConstraints();
-		gbc_searchField.insets = new Insets(0, 3, 0, 5);
+		gbc_searchField.insets = new Insets(0, 3, 0, 0);
 		gbc_searchField.fill = GridBagConstraints.BOTH;
 		gbc_searchField.gridx = 6;
 		gbc_searchField.gridy = 1;
@@ -197,6 +196,9 @@ public class MainMenu extends JFrame {
 		gbc_ListContainer.gridx = 1;
 		gbc_ListContainer.gridy = 1;
 		contentPane.add(ListContainer, gbc_ListContainer);
+		
+		JList list = new JList();
+		ListContainer.add(list);
 	}
 
 }
