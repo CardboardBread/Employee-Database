@@ -1,14 +1,13 @@
 package database;
-import java.util.Random;
 
-public class EmployeeInfo {
+public class Employee {
 	private int empNumber;
 	private String firstName;
 	private String lastName;
 	private String sex;
 	private String workLocation;
 	
-	public EmployeeInfo (int num, String first, String last, String s, String work) {
+	public Employee (int num, String first, String last, String s, String work) {
 		empNumber = num;
 		firstName = first;
 		lastName = last;

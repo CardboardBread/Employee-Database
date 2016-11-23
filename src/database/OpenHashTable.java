@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class OpenHashTable
 {
-	public ArrayList<EmployeeInfo>[] buckets;
+	public ArrayList<Employee>[] buckets;
 	
 	/**
 	 * Public constructor for initializing the array of buckets and the contents of each bucket.
@@ -15,7 +15,7 @@ public class OpenHashTable
 		buckets = new ArrayList[bucketCount];
 		
 		for (int i = 0; i < buckets.length; i++) {
-			buckets[i] = new ArrayList<EmployeeInfo>();
+			buckets[i] = new ArrayList<Employee>();
 		}
 	}
 	
@@ -28,7 +28,7 @@ public class OpenHashTable
 		return (keyValue % buckets.length);
 	}
 	
-	public boolean addEmployee(EmployeeInfo subject) {
+	public boolean addEmployee(Employee subject) {
 		try {
 			int index = calcBucket(subject.getNum());
 			//System.out.println("Adding " + subject.getFirst() + ":" + subject.getNum() + " to " + index + ".");
@@ -44,12 +44,12 @@ public class OpenHashTable
 	 * @param employeeNum The target the function searches for.
 	 * @return The employee that the search finds.
 	 */
-	public EmployeeInfo searchEmployee(int employeeNum) {
+	public Employee searchEmployee(int employeeNum) {
 		int bIndex = -1;
 		int sIndex = -1;
-		for (ArrayList<EmployeeInfo> bucket : buckets) {
+		for (ArrayList<Employee> bucket : buckets) {
 			bIndex++;
-			for (EmployeeInfo employee : bucket) {
+			for (Employee employee : bucket) {
 				sIndex++;
 				if (employeeNum == employee.getNum()) {
 					System.out.println("Found employee " + sIndex + " at bucket " + bIndex);
@@ -65,11 +65,11 @@ public class OpenHashTable
 	 * @param target The ID of the employee that is to be removed.
 	 * @return
 	 */
-	public EmployeeInfo removeEmployee (int target) {
-		for (ArrayList<EmployeeInfo> bucket : buckets) {
-			for (EmployeeInfo employee : bucket) {
+	public Employee removeEmployee (int target) {
+		for (ArrayList<Employee> bucket : buckets) {
+			for (Employee employee : bucket) {
 				if (target == employee.getNum()) {
-					EmployeeInfo grab = employee;
+					Employee grab = employee;
 					bucket.remove(employee);
 					return grab;
 				}
@@ -83,7 +83,7 @@ public class OpenHashTable
 	 */
 	public void displayContents () {
 		int index = -1;
-		for (ArrayList<EmployeeInfo> bucket : buckets) {
+		for (ArrayList<Employee> bucket : buckets) {
 			index++;
 			System.out.print("Bucket " + index + " [");
 			for (int i = 0; i < bucket.size(); i++) {

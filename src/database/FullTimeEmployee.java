@@ -1,7 +1,6 @@
 package database;
 
-public class FullTimeEmployee extends EmployeeInfo {
-
+public class FullTimeEmployee extends Employee {
 	private float salary;
 	private int seniority;
 	private float deductible;
