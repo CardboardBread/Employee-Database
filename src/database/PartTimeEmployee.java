@@ -2,40 +2,36 @@ package database;
 
 public class PartTimeEmployee extends EmployeeInfo {
 	
-	private double hourlyWage;
-	private long workTerm;
-	private double hoursPerWeek;
-	private double hoursPerYear;
+	private float hourlyWage;
+	private int workTerm;
+	private float hoursPerWeek;
+	private float hoursPerYear;
+	private float deductible;
 
-	public PartTimeEmployee (int num, double money, double HPW, long time, String... params) {
-		super(num, params[0], params[1], params[2], params[3]);
+	public PartTimeEmployee (int num, String first, String last, String s, String work, float money, float ded, float HPW, int time) {
+		super(num, first, last, s, work);
 		hourlyWage = money;
 		workTerm = time;
+		deductible = ded;
 		hoursPerWeek = HPW;
 		hoursPerYear = hoursPerWeek * 52;
 	}
 	
-	public int getNum () { return super.getNum(); }
-	public String getFirst () { return super.getFirst(); }
-	public String getLast () { return super.getLast(); }
-	public String getSex  () { return super.getSex(); }
-	public String getWorkLoc () { return super.getWorkLoc(); }
-	public double getWage () { return hourlyWage; }
-	public long getWorkT () { return workTerm; }
-	public double getHPW () { return hoursPerWeek; }
-	public double getHPY () { return hoursPerYear; }
+	public float geHourlytWage () { return hourlyWage; }
+	public int getWorkTerm () { return workTerm; }
+	public float getHoursPerWeek () { return hoursPerWeek; }
+	public float getHoursPerYear () { return hoursPerYear; }
+	public float getDeductible () { return deductible; }
 	
-	public void setWork (String value) { super.setWork(value); }
-	public void setNum (int value) { super.setNum(value); }
-	public void setWage (float value) { hourlyWage = value; }
-	public void setHPW (double value) { hoursPerWeek = value; }
-	public void setHPY (double value) { hoursPerYear = value; }
+	public void setHourlyWage (float value) { hourlyWage = value; }
+	public void setHoursPerWeek (float value) { hoursPerWeek = value; }
+	public void setHoutsPerYear (float value) { hoursPerYear = value; }
 	
-	public double calcWeekly () {
-		return (hourlyWage * hoursPerWeek);
+	public float calcWeeklyWage () {
+		return (hourlyWage * hoursPerWeek) * (1 - deductible);
 	}
 	
-	public double calcYearly () {
-		return (hourlyWage * hoursPerYear);
+	public float calcYearlyWage () {
+		return (hourlyWage * hoursPerYear) * (1 - deductible);
 	}
 }

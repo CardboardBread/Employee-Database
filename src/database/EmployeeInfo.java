@@ -8,43 +8,12 @@ public class EmployeeInfo {
 	private String sex;
 	private String workLocation;
 	
-	public EmployeeInfo () {
-		Random rand = new Random();
-		empNumber = rand.nextInt();
-		firstName = rand.toString().substring(0, rand.toString().length() / 2);
-		lastName = rand.toString().substring(rand.toString().length() / 2, rand.toString().length());
-	}
-	
-	public EmployeeInfo (int num, String... params) {
+	public EmployeeInfo (int num, String first, String last, String s, String work) {
 		empNumber = num;
-		switch (params.length) {
-		case 0:
-			break;
-		case 1:
-			firstName = params[0];
-			lastName = null;
-			sex = null;
-			workLocation = null;
-			break;
-		case 2:
-			firstName = params[0];
-			lastName = params[1];
-			sex = null;
-			workLocation = null;
-			break;
-		case 3:
-			firstName = params[0];
-			lastName = params[1];
-			sex = params[2];
-			workLocation = null;
-			break;
-		case 4:
-			firstName = params[0];
-			lastName = params[1];
-			sex = params[2];
-			workLocation = params[3];
-			break;
-		}
+		firstName = first;
+		lastName = last;
+		sex = s;
+		workLocation = work;
 	}
 	
 	public int getNum () { return empNumber; }

@@ -25,7 +25,12 @@ public class Main {
 	
 	public static EmployeeInfo storageToEmployee (String storage) {
 		String[] split = storage.split(empSplitter);
-		return new EmployeeInfo(Integer.parseInt(split[0]), split[1], split[2], split[3], split[4]);
+		if (split.length == 9) {
+			
+		} else if (split.length == 8) {
+			
+		}
+		
 	}
 	
 	public static String employeeToStorage (EmployeeInfo employee) {
@@ -36,4 +41,6 @@ public class Main {
 				+ employee.getWorkLoc();
 		return out;
 	}
+	
+	public static String
 }
