@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class FileLoader {
 
-	FileReader fileReader;
-	BufferedReader bufferedReader;
-	String line;
+	private FileReader fileReader;
+	private BufferedReader bufferedReader;
+	private String line;
 
 	public FileLoader(String fileName) {
 
