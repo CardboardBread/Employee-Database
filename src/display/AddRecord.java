@@ -91,6 +91,13 @@ public class AddRecord extends JFrame {
 		gbc_identField.gridy = 1;
 		contentPane.add(identField, gbc_identField);
 		
+		Component identStrut = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_identStrut = new GridBagConstraints();
+		gbc_identStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_identStrut.gridx = 1;
+		gbc_identStrut.gridy = 1;
+		contentPane.add(identStrut, gbc_identStrut);
+		
 		identEntryField = new JTextField();
 		GridBagConstraints gbc_identEntryField = new GridBagConstraints();
 		gbc_identEntryField.fill = GridBagConstraints.HORIZONTAL;
@@ -109,6 +116,13 @@ public class AddRecord extends JFrame {
 		gbc_workField.gridy = 2;
 		contentPane.add(workField, gbc_workField);
 		
+		Component workStrut = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_workStrut = new GridBagConstraints();
+		gbc_workStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_workStrut.gridx = 1;
+		gbc_workStrut.gridy = 2;
+		contentPane.add(workStrut, gbc_workStrut);
+		
 		workEntryField = new JTextField();
 		GridBagConstraints gbc_workEntryField = new GridBagConstraints();
 		gbc_workEntryField.fill = GridBagConstraints.HORIZONTAL;
@@ -126,6 +140,13 @@ public class AddRecord extends JFrame {
 		gbc_sexField.gridx = 0;
 		gbc_sexField.gridy = 3;
 		contentPane.add(sexField, gbc_sexField);
+		
+		Component sexStrut = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_sexStrut = new GridBagConstraints();
+		gbc_sexStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_sexStrut.gridx = 1;
+		gbc_sexStrut.gridy = 3;
+		contentPane.add(sexStrut, gbc_sexStrut);
 		
 		sexEntryField = new JTextField();
 		GridBagConstraints gbc_sexEntryField = new GridBagConstraints();
@@ -176,14 +197,14 @@ public class AddRecord extends JFrame {
 		gbc_partEmployeeButton.gridy = 4;
 		contentPane.add(partEmployeeButton, gbc_partEmployeeButton);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
-		gbc_tabbedPane.gridwidth = 5;
-		gbc_tabbedPane.insets = new Insets(0, 5, 0, 0);
-		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
-		gbc_tabbedPane.gridx = 0;
-		gbc_tabbedPane.gridy = 5;
-		contentPane.add(tabbedPane, gbc_tabbedPane);
+		JTabbedPane employeeTimeField = new JTabbedPane(JTabbedPane.TOP);
+		GridBagConstraints gbc_employeeTimeField = new GridBagConstraints();
+		gbc_employeeTimeField.gridwidth = 5;
+		gbc_employeeTimeField.insets = new Insets(0, 5, 0, 0);
+		gbc_employeeTimeField.fill = GridBagConstraints.BOTH;
+		gbc_employeeTimeField.gridx = 0;
+		gbc_employeeTimeField.gridy = 5;
+		contentPane.add(employeeTimeField, gbc_employeeTimeField);
 	}
 
 }
