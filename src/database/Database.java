@@ -1,15 +1,17 @@
 package database;
 
+
 import java.util.ArrayList;
 
 public class Database {
-	
 	public static final String empSplitter = ",";
 	public static final int bucketCount = 2;
 	public static OpenHashTable table;
+	public static FileLoader file;
 
 	public static void main(String[] args) {
-		
+		table = new OpenHashTable(bucketCount);
+		file = new FileLoader("EmployeeInfo.txt");
 	}
 	
 	public static void newDatabase () {
@@ -23,6 +25,11 @@ public class Database {
 	public static void loadDatabase () {
 		ArrayList<String> contents = new ArrayList<String>();
 		for (String str : contents) {
+		}
+		}
+
+	public static void loadTable () {
+		for (String str : file.readFile()) {
 			table.addEmployee(storageToEmployee(str));
 		}
 	}
