@@ -2,22 +2,25 @@ package database;
 
 import java.util.ArrayList;
 
-public class Main {
+public class Database {
 	
 	public static final String empSplitter = ",";
 	public static final int bucketCount = 2;
 	public static OpenHashTable table;
 
 	public static void main(String[] args) {
+		
+	}
+	
+	public static void newDatabase () {
 		table = new OpenHashTable(bucketCount);
+	}
+	
+	public static void saveDatabase () {
 		
 	}
 	
-	public static void saveTable () {
-		
-	}
-	
-	public static void loadTable () {
+	public static void loadDatabase () {
 		ArrayList<String> contents = new ArrayList<String>();
 		for (String str : contents) {
 			table.addEmployee(storageToEmployee(str));
