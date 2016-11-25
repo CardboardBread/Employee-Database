@@ -8,14 +8,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class FileLoader {
-
 	
-
-	public ArrayList<String> readFile(String fileName) {
-		
+	public static ArrayList<String> readFile(String fileName) {
 		ArrayList<String> fileLoad = new ArrayList<String>();
 		String line;
-		
 		try {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -28,11 +24,10 @@ public class FileLoader {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-
 		return fileLoad;
 	}
 
-	public void saveFile(ArrayList<String> load, String fileName) {
+	public static void saveFile(ArrayList<String> load, String fileName) {
 		try {
 			PrintWriter writer = new PrintWriter(fileName);
 			for (int i = 0; i < load.size(); i++){

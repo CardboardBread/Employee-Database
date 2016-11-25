@@ -6,23 +6,28 @@ import java.util.ArrayList;
 public class Database {
 	public static final String empSplitter = ",";
 	public static final int bucketCount = 2;
+	public static String workingFile;
 	public static OpenHashTable table;
-	public static FileLoader file;
 
 	public static void main(String[] args) {
 		table = new OpenHashTable(bucketCount);
-		file = new FileLoader();
 	}
 	
 	public static void newDatabase () {
 		table = new OpenHashTable(bucketCount);
+		workingFile = null;
 	}
 	
 	public static void saveDatabase () {
-		ArrayList<Employee> empOut = table.toList();
-		ArrayList<String> strOut = new ArrayList<String>();
-		for (Employee emp : empOut) {
-			strOut.add(employeeToString(emp));
+		if (workingFile != null) {
+			ArrayList<Employee> empOut = table.toList();
+			ArrayList<String> strOut = new ArrayList<String>();
+			for (Employee emp : empOut) {
+				strOut.add(employeeToString(emp));
+			}
+			FileLoader.saveFile(strOut, workingFile);
+		} else {
+			// open save database as dialog
 		}
 	}
 	
@@ -32,13 +37,15 @@ public class Database {
 		for (Employee emp : empOut) {
 			strOut.add(employeeToString(emp));
 		}
+		FileLoader.saveFile(strOut, fileName);
 	}
 	
 	public static void loadDatabase (String fileName) {
-		ArrayList<String> contents = file.readFile();
+		ArrayList<String> contents = FileLoader.readFile(fileName);
 		for (String str : contents) {
 			table.addEmployee(storageToEmployee(str));
 		}
+		workingFile = fileName;
 	}
 	
 	public static void addEmployee () {
