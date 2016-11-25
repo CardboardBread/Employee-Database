@@ -11,7 +11,7 @@ public class Database {
 
 	public static void main(String[] args) {
 		table = new OpenHashTable(bucketCount);
-		file = new FileLoader("EmployeeInfo.txt");
+		file = new FileLoader();
 	}
 	
 	public static void newDatabase () {
