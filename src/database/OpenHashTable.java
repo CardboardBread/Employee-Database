@@ -92,4 +92,19 @@ public class OpenHashTable
 			System.out.println();
 		}
 	}
+	
+	/**
+	 * Translates the hash table into a single dimension ArrayList.
+	 * Even though the structure of the hash table is not preserved, a reconstruction will be effortless to create.
+	 * @return The hash table in ArrayList form.
+	 */
+	public ArrayList<Employee> toList () {
+		ArrayList<Employee> out = new ArrayList<Employee>();
+		for (ArrayList<Employee> bucket : buckets) {
+			for (Employee emp : bucket) {
+				out.add(emp);
+			}
+		}
+		return out;
+	}
 }

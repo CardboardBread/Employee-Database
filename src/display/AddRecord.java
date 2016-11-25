@@ -16,6 +16,7 @@ import javax.swing.JSeparator;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JTabbedPane;
+import javax.swing.JButton;
 
 public class AddRecord extends JFrame {
 
@@ -52,9 +53,9 @@ public class AddRecord extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] {0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[] {0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel nameField = new JLabel("Employee Name:");
@@ -200,11 +201,25 @@ public class AddRecord extends JFrame {
 		JTabbedPane employeeTimeField = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_employeeTimeField = new GridBagConstraints();
 		gbc_employeeTimeField.gridwidth = 5;
-		gbc_employeeTimeField.insets = new Insets(0, 5, 0, 0);
+		gbc_employeeTimeField.insets = new Insets(0, 5, 5, 0);
 		gbc_employeeTimeField.fill = GridBagConstraints.BOTH;
 		gbc_employeeTimeField.gridx = 0;
 		gbc_employeeTimeField.gridy = 5;
 		contentPane.add(employeeTimeField, gbc_employeeTimeField);
+		
+		JButton cancelButton = new JButton("Cancel");
+		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+		gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
+		gbc_cancelButton.gridx = 2;
+		gbc_cancelButton.gridy = 6;
+		contentPane.add(cancelButton, gbc_cancelButton);
+		
+		JButton okButton = new JButton("OK");
+		GridBagConstraints gbc_okButton = new GridBagConstraints();
+		gbc_okButton.insets = new Insets(0, 0, 0, 5);
+		gbc_okButton.gridx = 3;
+		gbc_okButton.gridy = 6;
+		contentPane.add(okButton, gbc_okButton);
 	}
 
 }

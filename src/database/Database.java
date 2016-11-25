@@ -19,19 +19,64 @@ public class Database {
 	}
 	
 	public static void saveDatabase () {
+		ArrayList<Employee> empOut = table.toList();
+		ArrayList<String> strOut = new ArrayList<String>();
+		for (Employee emp : empOut) {
+			strOut.add(employeeToString(emp));
+		}
+	}
+	
+	public static void saveDatabaseAs (String fileName) {
+		ArrayList<Employee> empOut = table.toList();
+		ArrayList<String> strOut = new ArrayList<String>();
+		for (Employee emp : empOut) {
+			strOut.add(employeeToString(emp));
+		}
+	}
+	
+	public static void loadDatabase (String fileName) {
+		ArrayList<String> contents = file.readFile();
+		for (String str : contents) {
+			table.addEmployee(storageToEmployee(str));
+		}
+	}
+	
+	public static void addEmployee () {
+		// Open add record dialog
+	}
+	
+	public static void finishAdd (Employee subject) {
+		// add record dialog calls this with object to add
+	}
+
+	/**
+	 * Removes the employee containing the provided ID.
+	 * @param ident The employee number of the employee that is to be removed.
+	 * @return The removed employee.
+	 */
+	public static Employee deleteEmployee (int ident) {
+		// removes  the employee at the specified
+	}
+	
+	public static void editEmployeee (int ident) {
+		// open edit record dialog
+	}
+	
+	public static void finishEdit (Employee subject) {
+		// edit record dialog call this with object to change
+	}
+	
+	public static void replaceEmployee (int oldEmp) {
+		// open replace record dialog
+	}
+	
+	public static void finishReplace (Employee subject) {
 		
 	}
 	
-	public static void loadDatabase () {
-		ArrayList<String> contents = new ArrayList<String>();
-		for (String str : contents) {
-		}
-		}
-
-	public static void loadTable () {
-		for (String str : file.readFile()) {
-			table.addEmployee(storageToEmployee(str));
-		}
+	public static Employee searchEmployee (String searchTerm) {
+		// called every time the search term changes in its field
+		// cannot be empty
 	}
 	
 	/**
@@ -39,7 +84,7 @@ public class Database {
 	 * @param storage The string to be translated.
 	 * @return The resultant employee object.
 	 */
-	public static Employee storageToEmployee (String storage) {
+	private static Employee storageToEmployee (String storage) {
 		String[] split = storage.split(empSplitter);
 		if (split.length == 10) {
 			return new PartTimeEmployee(Integer.parseInt(split[0]),
@@ -78,7 +123,7 @@ public class Database {
 	 * @param employee The employee object to be transformed.
 	 * @return The string to be written to file.
 	 */
-	public static String employeeToString (Employee employee) {
+	private static String employeeToString (Employee employee) {
 		String out = employee.getNum() + empSplitter
 				+ employee.getFirst() + empSplitter
 				+ employee.getLast() + empSplitter
@@ -92,7 +137,7 @@ public class Database {
 	 * @param employee The employee object to be transformed.
 	 * @return The string to be written to file.
 	 */
-	public static String fullTimeToString (FullTimeEmployee employee) {
+	private static String fullTimeToString (FullTimeEmployee employee) {
 		String out = employee.getNum() + empSplitter
 				+ employee.getFirst() + empSplitter
 				+ employee.getLast() + empSplitter
@@ -109,7 +154,7 @@ public class Database {
 	 * @param employee The employee object to be transformed.
 	 * @return The string to be written to file.
 	 */
-	public static String partTimeToString (PartTimeEmployee employee) {
+	private static String partTimeToString (PartTimeEmployee employee) {
 		String out = employee.getNum() + empSplitter
 				+ employee.getFirst() + empSplitter
 				+ employee.getLast() + empSplitter

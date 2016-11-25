@@ -24,6 +24,10 @@ import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class MainMenu extends JFrame {
 
@@ -51,29 +55,28 @@ public class MainMenu extends JFrame {
 	 */
 	public MainMenu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 642, 492);
+		setBounds(100, 100, 681, 501);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(3, 3, 3, 3));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] {0, 0};
 		gbl_contentPane.rowHeights = new int[] {0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 0.0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0};
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JPanel GlobalContainer = new JPanel();
 		GlobalContainer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_GlobalContainer = new GridBagConstraints();
-		gbc_GlobalContainer.insets = new Insets(0, 0, 5, 5);
+		gbc_GlobalContainer.insets = new Insets(5, 5, 5, 5);
 		gbc_GlobalContainer.fill = GridBagConstraints.BOTH;
 		gbc_GlobalContainer.gridx = 0;
 		gbc_GlobalContainer.gridy = 0;
 		contentPane.add(GlobalContainer, gbc_GlobalContainer);
 		GridBagLayout gbl_GlobalContainer = new GridBagLayout();
-		gbl_GlobalContainer.columnWidths = new int[] {53, 57, 55};
+		gbl_GlobalContainer.columnWidths = new int[] {53, 57, 0, 55};
 		gbl_GlobalContainer.rowHeights = new int[] {10, 10};
-		gbl_GlobalContainer.columnWeights = new double[]{0.0, 1.0, 0.0};
+		gbl_GlobalContainer.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
 		gbl_GlobalContainer.rowWeights = new double[]{0.0, 0.0};
 		GlobalContainer.setLayout(gbl_GlobalContainer);
 		
@@ -93,18 +96,25 @@ public class MainMenu extends JFrame {
 		gbc_saveDatabaseButton.gridy = 1;
 		GlobalContainer.add(saveDatabaseButton, gbc_saveDatabaseButton);
 		
+		JButton btnSaveAs = new JButton("Save As...");
+		GridBagConstraints gbc_btnSaveAs = new GridBagConstraints();
+		gbc_btnSaveAs.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSaveAs.gridx = 2;
+		gbc_btnSaveAs.gridy = 1;
+		GlobalContainer.add(btnSaveAs, gbc_btnSaveAs);
+		
 		JButton loadDatabaseButton = new JButton("Load");
 		GridBagConstraints gbc_loadDatabaseButton = new GridBagConstraints();
 		gbc_loadDatabaseButton.fill = GridBagConstraints.BOTH;
 		gbc_loadDatabaseButton.insets = new Insets(0, 3, 0, 0);
-		gbc_loadDatabaseButton.gridx = 2;
+		gbc_loadDatabaseButton.gridx = 3;
 		gbc_loadDatabaseButton.gridy = 1;
 		GlobalContainer.add(loadDatabaseButton, gbc_loadDatabaseButton);
 		
 		JLabel globalControlLabel = new JLabel("Database Controls");
 		GridBagConstraints gbc_globalControlLabel = new GridBagConstraints();
-		gbc_globalControlLabel.gridwidth = 3;
-		gbc_globalControlLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_globalControlLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_globalControlLabel.gridwidth = 4;
 		gbc_globalControlLabel.gridx = 0;
 		gbc_globalControlLabel.gridy = 0;
 		GlobalContainer.add(globalControlLabel, gbc_globalControlLabel);
@@ -112,7 +122,7 @@ public class MainMenu extends JFrame {
 		JPanel ActionContainer = new JPanel();
 		ActionContainer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_ActionContainer = new GridBagConstraints();
-		gbc_ActionContainer.insets = new Insets(0, 0, 5, 0);
+		gbc_ActionContainer.insets = new Insets(5, 0, 5, 5);
 		gbc_ActionContainer.fill = GridBagConstraints.BOTH;
 		gbc_ActionContainer.gridx = 1;
 		gbc_ActionContainer.gridy = 0;
@@ -126,6 +136,7 @@ public class MainMenu extends JFrame {
 		
 		JLabel employeeControlLabel = new JLabel("Employee Controls");
 		GridBagConstraints gbc_employeeControlLabel = new GridBagConstraints();
+		gbc_employeeControlLabel.insets = new Insets(0, 0, 5, 0);
 		gbc_employeeControlLabel.gridwidth = 7;
 		gbc_employeeControlLabel.gridx = 0;
 		gbc_employeeControlLabel.gridy = 0;
@@ -173,6 +184,7 @@ public class MainMenu extends JFrame {
 		
 		searchField = new JTextField();
 		GridBagConstraints gbc_searchField = new GridBagConstraints();
+		gbc_searchField.ipadx = 60;
 		gbc_searchField.insets = new Insets(0, 3, 0, 0);
 		gbc_searchField.fill = GridBagConstraints.BOTH;
 		gbc_searchField.gridx = 6;
@@ -182,7 +194,7 @@ public class MainMenu extends JFrame {
 		
 		JPanel ViewContainer = new JPanel();
 		GridBagConstraints gbc_ViewContainer = new GridBagConstraints();
-		gbc_ViewContainer.insets = new Insets(0, 0, 5, 5);
+		gbc_ViewContainer.insets = new Insets(0, 5, 5, 5);
 		gbc_ViewContainer.fill = GridBagConstraints.BOTH;
 		gbc_ViewContainer.gridx = 0;
 		gbc_ViewContainer.gridy = 1;
@@ -191,7 +203,7 @@ public class MainMenu extends JFrame {
 		
 		JPanel ListContainer = new JPanel();
 		GridBagConstraints gbc_ListContainer = new GridBagConstraints();
-		gbc_ListContainer.insets = new Insets(0, 0, 5, 0);
+		gbc_ListContainer.insets = new Insets(0, 0, 5, 5);
 		gbc_ListContainer.fill = GridBagConstraints.BOTH;
 		gbc_ListContainer.gridx = 1;
 		gbc_ListContainer.gridy = 1;
