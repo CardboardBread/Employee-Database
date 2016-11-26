@@ -17,14 +17,43 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JToggleButton;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class AddRecord extends JFrame {
 
+	private final String PART_TIME = "Part Time";
+	private final String FULL_TIME = "Full Time";
 	private JPanel contentPane;
 	private JTextField nameEntryField;
 	private JTextField identEntryField;
 	private JTextField sexEntryField;
 	private JTextField workEntryField;
+	private String firstName;
+	private String lastName;
+	private String ident;
+	private String sex;
+	private String workLocation;
+	private String employeeTypeLabel = FULL_TIME;
+	private JRadioButton partTimeButton;
+	private JRadioButton fullTimeButton;
+	private JTextField fullDeductibleField;
+	private JTextField fullSeniorityField;
+	private JTextField fullSalaryField;
+	private JTextField fullAnnualField;
+	private JPanel fullContainer;
+	private JPanel partContainer;
+	private JTextField partDeductibleField;
+	private JTextField partSeniorityField;
+	private JTextField partSalaryField;
+	private JTextField partAnnualField;
 
 	/**
 	 * Launch the application.
@@ -47,7 +76,7 @@ public class AddRecord extends JFrame {
 	 */
 	public AddRecord() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 400);
+		setBounds(100, 100, 400, 320);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -174,40 +203,220 @@ public class AddRecord extends JFrame {
 		gbc_typeStrut.gridy = 4;
 		contentPane.add(typeStrut, gbc_typeStrut);
 		
-		JRadioButton defaultEmployeeButton = new JRadioButton("Standard");
-		GridBagConstraints gbc_defaultEmployeeButton = new GridBagConstraints();
-		gbc_defaultEmployeeButton.anchor = GridBagConstraints.WEST;
-		gbc_defaultEmployeeButton.insets = new Insets(0, 0, 5, 5);
-		gbc_defaultEmployeeButton.gridx = 2;
-		gbc_defaultEmployeeButton.gridy = 4;
-		contentPane.add(defaultEmployeeButton, gbc_defaultEmployeeButton);
+		fullTimeButton = new JRadioButton("Full Time");
+		fullTimeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fullTimeButton.setSelected(true);
+				partTimeButton.setSelected(false);
+				fullContainer.setVisible(true);
+				partContainer.setVisible(false);
+			}
+		});
+		fullTimeButton.setSelected(true);
+		GridBagConstraints gbc_fullTimeButton = new GridBagConstraints();
+		gbc_fullTimeButton.insets = new Insets(0, 0, 5, 5);
+		gbc_fullTimeButton.gridx = 2;
+		gbc_fullTimeButton.gridy = 4;
+		contentPane.add(fullTimeButton, gbc_fullTimeButton);
 		
-		JRadioButton fullEmployeeButton = new JRadioButton("Full Time Employee");
-		GridBagConstraints gbc_fullEmployeeButton = new GridBagConstraints();
-		gbc_fullEmployeeButton.anchor = GridBagConstraints.WEST;
-		gbc_fullEmployeeButton.insets = new Insets(0, 0, 5, 5);
-		gbc_fullEmployeeButton.gridx = 3;
-		gbc_fullEmployeeButton.gridy = 4;
-		contentPane.add(fullEmployeeButton, gbc_fullEmployeeButton);
-		
-		JRadioButton partEmployeeButton = new JRadioButton("Part Time Employee");
-		GridBagConstraints gbc_partEmployeeButton = new GridBagConstraints();
-		gbc_partEmployeeButton.anchor = GridBagConstraints.WEST;
-		gbc_partEmployeeButton.insets = new Insets(0, 0, 5, 0);
-		gbc_partEmployeeButton.gridx = 4;
-		gbc_partEmployeeButton.gridy = 4;
-		contentPane.add(partEmployeeButton, gbc_partEmployeeButton);
-		
-		JTabbedPane employeeTimeField = new JTabbedPane(JTabbedPane.TOP);
-		GridBagConstraints gbc_employeeTimeField = new GridBagConstraints();
-		gbc_employeeTimeField.gridwidth = 5;
-		gbc_employeeTimeField.insets = new Insets(0, 5, 5, 0);
-		gbc_employeeTimeField.fill = GridBagConstraints.BOTH;
-		gbc_employeeTimeField.gridx = 0;
-		gbc_employeeTimeField.gridy = 5;
-		contentPane.add(employeeTimeField, gbc_employeeTimeField);
+		partTimeButton = new JRadioButton("Part Time");
+		partTimeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				partTimeButton.setSelected(true);
+				fullTimeButton.setSelected(false);
+				partContainer.setVisible(true);
+				fullContainer.setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_partTimeButton = new GridBagConstraints();
+		gbc_partTimeButton.insets = new Insets(0, 0, 5, 5);
+		gbc_partTimeButton.gridx = 3;
+		gbc_partTimeButton.gridy = 4;
+		contentPane.add(partTimeButton, gbc_partTimeButton);
 		
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancel();
+			}
+		});
+		
+		JPanel typeContainer = new JPanel();
+		GridBagConstraints gbc_typeContainer = new GridBagConstraints();
+		gbc_typeContainer.gridwidth = 6;
+		gbc_typeContainer.insets = new Insets(0, 0, 5, 5);
+		gbc_typeContainer.fill = GridBagConstraints.BOTH;
+		gbc_typeContainer.gridx = 0;
+		gbc_typeContainer.gridy = 5;
+		contentPane.add(typeContainer, gbc_typeContainer);
+		GridBagLayout gbl_typeContainer = new GridBagLayout();
+		gbl_typeContainer.columnWeights = new double[]{1.0};
+		gbl_typeContainer.rowWeights = new double[]{1.0};
+		typeContainer.setLayout(gbl_typeContainer);
+		
+		fullContainer = new JPanel();
+		GridBagConstraints gbc_fullContainer = new GridBagConstraints();
+		gbc_fullContainer.insets = new Insets(5, 5, 5, 5);
+		gbc_fullContainer.fill = GridBagConstraints.BOTH;
+		gbc_fullContainer.gridx = 0;
+		gbc_fullContainer.gridy = 0;
+		typeContainer.add(fullContainer, gbc_fullContainer);
+		GridBagLayout gbl_fullContainer = new GridBagLayout();
+		gbl_fullContainer.columnWidths = new int[]{0, 0, 0};
+		gbl_fullContainer.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_fullContainer.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_fullContainer.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		fullContainer.setLayout(gbl_fullContainer);
+		
+		JLabel fullDeductibleLabel = new JLabel("Deductible:");
+		GridBagConstraints gbc_fullDeductibleLabel = new GridBagConstraints();
+		gbc_fullDeductibleLabel.anchor = GridBagConstraints.EAST;
+		gbc_fullDeductibleLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_fullDeductibleLabel.gridx = 0;
+		gbc_fullDeductibleLabel.gridy = 0;
+		fullContainer.add(fullDeductibleLabel, gbc_fullDeductibleLabel);
+		
+		fullDeductibleField = new JTextField();
+		GridBagConstraints gbc_fullDeductibleField = new GridBagConstraints();
+		gbc_fullDeductibleField.insets = new Insets(0, 0, 5, 0);
+		gbc_fullDeductibleField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_fullDeductibleField.gridx = 1;
+		gbc_fullDeductibleField.gridy = 0;
+		fullContainer.add(fullDeductibleField, gbc_fullDeductibleField);
+		fullDeductibleField.setColumns(10);
+		
+		JLabel fullSeniorityLabel = new JLabel("Seniority:");
+		GridBagConstraints gbc_fullSeniorityLabel = new GridBagConstraints();
+		gbc_fullSeniorityLabel.anchor = GridBagConstraints.EAST;
+		gbc_fullSeniorityLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_fullSeniorityLabel.gridx = 0;
+		gbc_fullSeniorityLabel.gridy = 1;
+		fullContainer.add(fullSeniorityLabel, gbc_fullSeniorityLabel);
+		
+		fullSeniorityField = new JTextField();
+		GridBagConstraints gbc_fullSeniorityField = new GridBagConstraints();
+		gbc_fullSeniorityField.insets = new Insets(0, 0, 5, 0);
+		gbc_fullSeniorityField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_fullSeniorityField.gridx = 1;
+		gbc_fullSeniorityField.gridy = 1;
+		fullContainer.add(fullSeniorityField, gbc_fullSeniorityField);
+		fullSeniorityField.setColumns(10);
+		
+		JLabel fullSalaryLabel = new JLabel("Salary:");
+		GridBagConstraints gbc_fullSalaryLabel = new GridBagConstraints();
+		gbc_fullSalaryLabel.anchor = GridBagConstraints.EAST;
+		gbc_fullSalaryLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_fullSalaryLabel.gridx = 0;
+		gbc_fullSalaryLabel.gridy = 2;
+		fullContainer.add(fullSalaryLabel, gbc_fullSalaryLabel);
+		
+		fullSalaryField = new JTextField();
+		GridBagConstraints gbc_fullSalaryField = new GridBagConstraints();
+		gbc_fullSalaryField.insets = new Insets(0, 0, 5, 0);
+		gbc_fullSalaryField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_fullSalaryField.gridx = 1;
+		gbc_fullSalaryField.gridy = 2;
+		fullContainer.add(fullSalaryField, gbc_fullSalaryField);
+		fullSalaryField.setColumns(10);
+		
+		JLabel fullAnnualLabel = new JLabel("Annual:");
+		GridBagConstraints gbc_fullAnnualLabel = new GridBagConstraints();
+		gbc_fullAnnualLabel.anchor = GridBagConstraints.EAST;
+		gbc_fullAnnualLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_fullAnnualLabel.gridx = 0;
+		gbc_fullAnnualLabel.gridy = 3;
+		fullContainer.add(fullAnnualLabel, gbc_fullAnnualLabel);
+		
+		fullAnnualField = new JTextField();
+		fullAnnualField.setEditable(false);
+		GridBagConstraints gbc_fullAnnualField = new GridBagConstraints();
+		gbc_fullAnnualField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_fullAnnualField.gridx = 1;
+		gbc_fullAnnualField.gridy = 3;
+		fullContainer.add(fullAnnualField, gbc_fullAnnualField);
+		fullAnnualField.setColumns(10);
+		
+		partContainer = new JPanel();
+		GridBagConstraints gbc_partContainer = new GridBagConstraints();
+		gbc_partContainer.insets = new Insets(5, 5, 5, 5);
+		gbc_partContainer.fill = GridBagConstraints.BOTH;
+		gbc_partContainer.gridx = 0;
+		gbc_partContainer.gridy = 0;
+		typeContainer.add(partContainer, gbc_partContainer);
+		GridBagLayout gbl_partContainer = new GridBagLayout();
+		gbl_partContainer.columnWidths = new int[]{0, 0, 0};
+		gbl_partContainer.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_partContainer.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_partContainer.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		partContainer.setLayout(gbl_partContainer);
+		
+		JLabel partDeductibleLabel = new JLabel("Deductible:");
+		GridBagConstraints gbc_partDeductibleLabel = new GridBagConstraints();
+		gbc_partDeductibleLabel.anchor = GridBagConstraints.EAST;
+		gbc_partDeductibleLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_partDeductibleLabel.gridx = 0;
+		gbc_partDeductibleLabel.gridy = 0;
+		partContainer.add(partDeductibleLabel, gbc_partDeductibleLabel);
+		
+		partDeductibleField = new JTextField();
+		GridBagConstraints gbc_partDeductibleField = new GridBagConstraints();
+		gbc_partDeductibleField.insets = new Insets(0, 0, 5, 0);
+		gbc_partDeductibleField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_partDeductibleField.gridx = 1;
+		gbc_partDeductibleField.gridy = 0;
+		partContainer.add(partDeductibleField, gbc_partDeductibleField);
+		partDeductibleField.setColumns(10);
+		
+		JLabel partSeniorityLabel = new JLabel("Work Term:");
+		GridBagConstraints gbc_partSeniorityLabel = new GridBagConstraints();
+		gbc_partSeniorityLabel.anchor = GridBagConstraints.EAST;
+		gbc_partSeniorityLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_partSeniorityLabel.gridx = 0;
+		gbc_partSeniorityLabel.gridy = 1;
+		partContainer.add(partSeniorityLabel, gbc_partSeniorityLabel);
+		
+		partSeniorityField = new JTextField();
+		partSeniorityField.setColumns(10);
+		GridBagConstraints gbc_partSeniorityField = new GridBagConstraints();
+		gbc_partSeniorityField.insets = new Insets(0, 0, 5, 0);
+		gbc_partSeniorityField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_partSeniorityField.gridx = 1;
+		gbc_partSeniorityField.gridy = 1;
+		partContainer.add(partSeniorityField, gbc_partSeniorityField);
+		
+		JLabel partSalaryLabel = new JLabel("Hourly Wage:");
+		GridBagConstraints gbc_partSalaryLabel = new GridBagConstraints();
+		gbc_partSalaryLabel.anchor = GridBagConstraints.EAST;
+		gbc_partSalaryLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_partSalaryLabel.gridx = 0;
+		gbc_partSalaryLabel.gridy = 2;
+		partContainer.add(partSalaryLabel, gbc_partSalaryLabel);
+		
+		partSalaryField = new JTextField();
+		partSalaryField.setColumns(10);
+		GridBagConstraints gbc_partSalaryField = new GridBagConstraints();
+		gbc_partSalaryField.insets = new Insets(0, 0, 5, 0);
+		gbc_partSalaryField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_partSalaryField.gridx = 1;
+		gbc_partSalaryField.gridy = 2;
+		partContainer.add(partSalaryField, gbc_partSalaryField);
+		
+		JLabel partAnnualLabel = new JLabel("Weekly Wage:");
+		GridBagConstraints gbc_partAnnualLabel = new GridBagConstraints();
+		gbc_partAnnualLabel.anchor = GridBagConstraints.EAST;
+		gbc_partAnnualLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_partAnnualLabel.gridx = 0;
+		gbc_partAnnualLabel.gridy = 3;
+		partContainer.add(partAnnualLabel, gbc_partAnnualLabel);
+		
+		partAnnualField = new JTextField();
+		partAnnualField.setEditable(false);
+		partAnnualField.setColumns(10);
+		GridBagConstraints gbc_partAnnualField = new GridBagConstraints();
+		gbc_partAnnualField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_partAnnualField.gridx = 1;
+		gbc_partAnnualField.gridy = 3;
+		partContainer.add(partAnnualField, gbc_partAnnualField);
 		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
 		gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
 		gbc_cancelButton.gridx = 2;
@@ -215,11 +424,25 @@ public class AddRecord extends JFrame {
 		contentPane.add(cancelButton, gbc_cancelButton);
 		
 		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_okButton = new GridBagConstraints();
 		gbc_okButton.insets = new Insets(0, 0, 0, 5);
 		gbc_okButton.gridx = 3;
 		gbc_okButton.gridy = 6;
 		contentPane.add(okButton, gbc_okButton);
+	}
+	
+	public void swapState(JRadioButton issuer, JRadioButton opposite) {
+		issuer.setSelected(true);
+		opposite.setSelected(false);
+	}
+	
+	public void cancel() {
+		setVisible(false);
+		dispose();
 	}
 
 }

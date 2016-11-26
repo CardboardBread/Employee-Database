@@ -3,21 +3,37 @@ package database;
 
 import java.util.ArrayList;
 
+import display.MainMenu;
+import display.SaveDatabaseAs;
+
 public class Database {
 	public static final String empSplitter = ",";
-	public static final int bucketCount = 2;
 	public static String workingFile;
 	public static OpenHashTable table;
 
 	public static void main(String[] args) {
-		table = new OpenHashTable(bucketCount);
+		try {
+			MainMenu frame = new MainMenu();
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static void newDatabase () {
-		table = new OpenHashTable(bucketCount);
+	public static void newDatabase (int count) {
+		table = new OpenHashTable(count);
 		workingFile = null;
 	}
 	
+	public static void newDatabase (int count, String name) {
+		table = new OpenHashTable(count);
+		workingFile = name;
+	}
+	
+	/**
+	 * Attempts to save the database with a previously defined working file name.
+	 * If no name is found, an attempt to save as will be made.
+	 */
 	public static void saveDatabase () {
 		if (workingFile != null) {
 			ArrayList<Employee> empOut = table.toList();
@@ -25,21 +41,41 @@ public class Database {
 			for (Employee emp : empOut) {
 				strOut.add(employeeToString(emp));
 			}
-			FileLoader.saveFile(strOut, workingFile);
+			FileLoader.writeFile(strOut, workingFile);
 		} else {
-			// open save database as dialog
+			saveDatabaseAs();
 		}
 	}
 	
-	public static void saveDatabaseAs (String fileName) {
+	/**
+	 * Opens a dialog to define the name of the database that is to be saved.
+	 */
+	public static void saveDatabaseAs () {
+		try {
+			SaveDatabaseAs frame = new SaveDatabaseAs();
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Called once the user has finished inputting data, which it will then use to write the current database to file.
+	 * @param fileName The name of the file to be written to.
+	 */
+	public static void finishSaveAs (String fileName) {
 		ArrayList<Employee> empOut = table.toList();
 		ArrayList<String> strOut = new ArrayList<String>();
 		for (Employee emp : empOut) {
 			strOut.add(employeeToString(emp));
 		}
-		FileLoader.saveFile(strOut, fileName);
+		FileLoader.writeFile(strOut, fileName);
 	}
 	
+	/**
+	 * Attempts to read the provided file from the filesystem, and translate its contents into the hash table.
+	 * @param fileName The file to be read from.
+	 */
 	public static void loadDatabase (String fileName) {
 		ArrayList<String> contents = FileLoader.readFile(fileName);
 		for (String str : contents) {
@@ -48,6 +84,9 @@ public class Database {
 		workingFile = fileName;
 	}
 	
+	/**
+	 * Opens a dialog to create a new employee.
+	 */
 	public static void addEmployee () {
 		// Open add record dialog
 	}
@@ -57,12 +96,19 @@ public class Database {
 	}
 
 	/**
-	 * Removes the employee containing the provided ID.
-	 * @param ident The employee number of the employee that is to be removed.
-	 * @return The removed employee.
+	 * Removes an employee containing the provided ID.
+	 * @param ident the identification number of the employee that is to be removed.
+	 * @return the employee object that has been removed from the hash table.
 	 */
 	public static Employee deleteEmployee (int ident) {
-		// removes  the employee at the specified
+		Employee target = table.searchEmployee(ident);
+		Employee out;
+		if (!(target == null)) {
+			out = table.removeEmployee(ident);
+			return out;
+		} else {
+			return null;
+		}
 	}
 	
 	public static void editEmployeee (int ident) {
@@ -78,12 +124,11 @@ public class Database {
 	}
 	
 	public static void finishReplace (Employee subject) {
-		
+		// replace record dialog call
 	}
 	
-	public static Employee searchEmployee (String searchTerm) {
-		// called every time the search term changes in its field
-		// cannot be empty
+	public static Employee searchEmployee (int ident) {
+		return table.searchEmployee(ident);
 	}
 	
 	/**

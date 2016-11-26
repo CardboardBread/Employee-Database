@@ -52,7 +52,7 @@ public class OpenHashTable
 			for (Employee employee : bucket) {
 				sIndex++;
 				if (employeeNum == employee.getNum()) {
-					System.out.println("Found employee " + sIndex + " at bucket " + bIndex);
+					//System.out.println("Found employee " + sIndex + " at bucket " + bIndex);
 					return employee;
 				}
 			}

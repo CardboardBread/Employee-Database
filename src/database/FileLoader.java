@@ -20,14 +20,15 @@ public class FileLoader {
 			}
 			bufferedReader.close();
 		} catch (FileNotFoundException ex) {
-			System.out.println("Unable to open file '" + fileName + "'");
+			System.out.println("Unable to open file '" + fileName + "'.");
+			ex.printStackTrace();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		return fileLoad;
 	}
 
-	public static void saveFile(ArrayList<String> load, String fileName) {
+	public static void writeFile(ArrayList<String> load, String fileName) {
 		try {
 			PrintWriter writer = new PrintWriter(fileName);
 			for (int i = 0; i < load.size(); i++){
@@ -35,7 +36,8 @@ public class FileLoader {
 			}
 			writer.close();
 		} catch (Exception e) {
-			System.out.println("could not create a file with the name " + fileName);
+			System.out.println("Could not create a file with the name " + fileName + ".");
+			e.printStackTrace();
 		}
 	}
 }
