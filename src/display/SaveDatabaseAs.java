@@ -32,7 +32,7 @@ public class SaveDatabaseAs extends JFrame {
 	private JTextField nameField;
 	private JButton okButton;
 	private JButton cancelButton;
-	private String name = "";
+	private String name;
 
 	/**
 	 * Launch the application.

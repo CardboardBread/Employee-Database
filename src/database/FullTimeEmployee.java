@@ -12,15 +12,15 @@ public class FullTimeEmployee extends Employee {
 		seniority = time;
 	}
 	
-	public double getSalary () { return salary; }
-	public double getDeductible () { return deductible; }
-	public long getSeniority () { return seniority; }
+	public float getSalary () { return salary; }
+	public float getDeductible () { return deductible; }
+	public int getSeniority () { return seniority; }
 	
 	public void setSalary (float value) { salary = value; }
 	public void setDeductible (float value) { deductible = value; }
 	public void setSeniority (int value) { seniority = value; }
 	
-	public double calcAnnualSalary () {
+	public float calcAnnualSalary () {
 		return salary * (1 - deductible);
 	}
 }

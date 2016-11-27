@@ -84,15 +84,8 @@ public class Database {
 		workingFile = fileName;
 	}
 	
-	/**
-	 * Opens a dialog to create a new employee.
-	 */
-	public static void addEmployee () {
-		// Open add record dialog
-	}
-	
-	public static void finishAdd (Employee subject) {
-		// add record dialog calls this with object to add
+	public static void submitEmployee (Employee subject) {
+		
 	}
 
 	/**
