@@ -25,7 +25,7 @@ public class PartTimeEmployee extends Employee {
 	public void setHourlyWage (float value) { hourlyWage = value; }
 	public void setWorkTerm (int value) { workTerm = value; }
 	public void setHoursPerWeek (float value) { hoursPerWeek = value; }
-	public void setHoutsPerYear (float value) { hoursPerYear = value; }
+	public void setHoursPerYear (float value) { hoursPerYear = value; }
 	public void setDeductible (float value) { deductible = value; }
 	
 	public float calcWeeklyWage () {
