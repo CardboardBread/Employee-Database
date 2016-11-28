@@ -27,7 +27,7 @@ public class FileLoader {
 		}
 		return fileLoad;
 	}
-
+//creates or overwrites a file, then writes to it
 	public static void writeFile(ArrayList<String> load, String fileName) {
 		try {
 			PrintWriter writer = new PrintWriter(fileName);
