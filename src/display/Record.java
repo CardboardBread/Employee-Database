@@ -43,6 +43,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Record extends JFrame {
 
@@ -51,8 +53,8 @@ public class Record extends JFrame {
 	private JPanel contentPane;
 	private JTextField nameEntryField;
 	private JTextField identEntryField;
-	private JTextField sexEntryField;
-	private JTextField workEntryField;
+	private JComboBox sexEntryField;
+	private JComboBox workEntryField;
 	private JRadioButton partTimeButton;
 	private JRadioButton fullTimeButton;
 	private JTextField fullDeductibleField;
@@ -215,9 +217,14 @@ public class Record extends JFrame {
 		gbc_workStrut.gridy = 2;
 		contentPane.add(workStrut, gbc_workStrut);
 		
-		workEntryField = new JTextField();
-		workEntryField.setText(workLocation);
-		addChangeListener(workEntryField, e -> workLocation = workEntryField.getText());
+		workEntryField = new JComboBox<String>();
+		workEntryField.setModel(new DefaultComboBoxModel<String>(new String[] {"Brampton", "Burlington", "Etobicoke", "Markham", "Milton", "Mississauga", "North York", "Oakville", "Richmond Hill", "Scarborough", "Toronto", "Vaughan"}));
+		workEntryField.setEditable(true);
+		workEntryField.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				workLocation = (String) workEntryField.getSelectedItem();
+			}
+		});
 		GridBagConstraints gbc_workEntryField = new GridBagConstraints();
 		gbc_workEntryField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_workEntryField.insets = new Insets(0, 0, 5, 5);
@@ -225,7 +232,6 @@ public class Record extends JFrame {
 		gbc_workEntryField.gridx = 2;
 		gbc_workEntryField.gridy = 2;
 		contentPane.add(workEntryField, gbc_workEntryField);
-		workEntryField.setColumns(10);
 		
 		JLabel sexField = new JLabel("Sex:");
 		GridBagConstraints gbc_sexField = new GridBagConstraints();
@@ -242,9 +248,14 @@ public class Record extends JFrame {
 		gbc_sexStrut.gridy = 3;
 		contentPane.add(sexStrut, gbc_sexStrut);
 		
-		sexEntryField = new JTextField();
-		sexEntryField.setText(sex);
-		addChangeListener(sexEntryField, e -> sex = sexEntryField.getText());
+		sexEntryField = new JComboBox<String>();
+		sexEntryField.setModel(new DefaultComboBoxModel(new String[] {"Male", "Female", "Other"}));
+		sexEntryField.setEditable(true);
+		sexEntryField.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				sex = (String) sexEntryField.getSelectedItem();
+			}
+		});
 		GridBagConstraints gbc_sexEntryField = new GridBagConstraints();
 		gbc_sexEntryField.gridwidth = 2;
 		gbc_sexEntryField.fill = GridBagConstraints.HORIZONTAL;
@@ -252,7 +263,6 @@ public class Record extends JFrame {
 		gbc_sexEntryField.gridx = 2;
 		gbc_sexEntryField.gridy = 3;
 		contentPane.add(sexEntryField, gbc_sexEntryField);
-		sexEntryField.setColumns(10);
 		
 		JLabel typeField = new JLabel("Employee Type:");
 		GridBagConstraints gbc_typeField = new GridBagConstraints();

@@ -10,6 +10,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
@@ -28,11 +30,14 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.AbstractListModel;
+import javax.swing.table.DefaultTableModel;
 
 public class MainMenu extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField searchField;
+	private ArrayList<String> employeeList;
 
 	/**
 	 * Launch the application.
@@ -55,7 +60,7 @@ public class MainMenu extends JFrame {
 	 */
 	public MainMenu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 681, 501);
+		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -208,9 +213,38 @@ public class MainMenu extends JFrame {
 		gbc_ListContainer.gridx = 1;
 		gbc_ListContainer.gridy = 1;
 		contentPane.add(ListContainer, gbc_ListContainer);
+		GridBagLayout gbl_ListContainer = new GridBagLayout();
+		gbl_ListContainer.columnWidths = new int[] {0};
+		gbl_ListContainer.rowHeights = new int[] {0};
+		gbl_ListContainer.columnWeights = new double[]{1.0, 0.0};
+		gbl_ListContainer.rowWeights = new double[]{1.0, 0.0};
+		ListContainer.setLayout(gbl_ListContainer);
 		
-		JList list = new JList();
-		ListContainer.add(list);
+		JButton previousPageButton = new JButton("Previous");
+		GridBagConstraints gbc_previousPageButton = new GridBagConstraints();
+		gbc_previousPageButton.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_previousPageButton.insets = new Insets(0, 0, 5, 5);
+		gbc_previousPageButton.gridx = 0;
+		gbc_previousPageButton.gridy = 1;
+		ListContainer.add(previousPageButton, gbc_previousPageButton);
+		
+		JButton nextPageButton = new JButton("Next");
+		GridBagConstraints gbc_nextPageButton = new GridBagConstraints();
+		gbc_nextPageButton.insets = new Insets(0, 0, 5, 0);
+		gbc_nextPageButton.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_nextPageButton.gridx = 1;
+		gbc_nextPageButton.gridy = 1;
+		ListContainer.add(nextPageButton, gbc_nextPageButton);
+		
+		JPanel ListHolder = new JPanel();
+		GridBagConstraints gbc_ListHolder = new GridBagConstraints();
+		gbc_ListHolder.gridwidth = 2;
+		gbc_ListHolder.insets = new Insets(0, 0, 0, 5);
+		gbc_ListHolder.fill = GridBagConstraints.BOTH;
+		gbc_ListHolder.gridx = 0;
+		gbc_ListHolder.gridy = 0;
+		ListContainer.add(ListHolder, gbc_ListHolder);
+		
 	}
-
+	
 }
