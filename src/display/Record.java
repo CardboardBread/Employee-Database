@@ -33,10 +33,6 @@ import java.beans.PropertyChangeEvent;
 import java.util.Objects;
 import java.awt.event.ItemEvent;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -50,8 +46,8 @@ public class Record extends JFrame {
 	private JPanel contentPane;
 	private JTextField nameEntryField;
 	private JTextField identEntryField;
-	private JComboBox sexEntryField;
-	private JComboBox workEntryField;
+	private JComboBox<String> sexEntryField;
+	private JComboBox<String> workEntryField;
 	private JRadioButton partTimeButton;
 	private JRadioButton fullTimeButton;
 	private JTextField fullDeductibleField;
@@ -93,7 +89,7 @@ public class Record extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Record frame = new Record("Add Employee...", new FullTimeEmployee(10, "yeah","yeah","yeah","yeah",0.25F,0.25F,1));
+					Record frame = new Record("Test GUI", new FullTimeEmployee(10, "yeah","yeah","yeah","yeah",0.25F,0.25F,1));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -224,7 +220,7 @@ public class Record extends JFrame {
 		contentPane.add(sexField, gbc_sexField);
 		
 		sexEntryField = new JComboBox<String>();
-		sexEntryField.setModel(new DefaultComboBoxModel(new String[] {"Male", "Female", "Other"}));
+		sexEntryField.setModel(new DefaultComboBoxModel<String>(new String[] {"Male", "Female", "Other"}));
 		sexEntryField.setEditable(true);
 		sexEntryField.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -583,7 +579,7 @@ public class Record extends JFrame {
 	
 	public void submit() {
 		if (employeeType) {
-			database.Database.finishEdit(new FullTimeEmployee(
+			database.Database.submitEmployee(new FullTimeEmployee(
 					Integer.parseInt(ident),
 					firstName,
 					lastName,
@@ -594,7 +590,7 @@ public class Record extends JFrame {
 					Integer.parseInt(seniority)
 					));
 		} else {
-			database.Database.finishEdit(new PartTimeEmployee(
+			database.Database.submitEmployee(new PartTimeEmployee(
 					Integer.parseInt(ident),
 					firstName,
 					lastName,

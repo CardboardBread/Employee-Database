@@ -9,35 +9,36 @@ import java.util.ArrayList;
 
 public class FileLoader {
 	
-	public static ArrayList<String> readFile(String fileName) {
+	/**
+	 * 
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	public static ArrayList<String> readFile(String fileName) throws IOException, FileNotFoundException {
 		ArrayList<String> fileLoad = new ArrayList<String>();
 		String line;
-		try {
-			FileReader fileReader = new FileReader(fileName);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			while ((line = bufferedReader.readLine()) != null) {
-				fileLoad.add(line);
-			}
-			bufferedReader.close();
-		} catch (FileNotFoundException ex) {
-			System.out.println("Unable to open file '" + fileName + "'.");
-			ex.printStackTrace();
-		} catch (IOException ex) {
-			ex.printStackTrace();
+		FileReader fileReader = new FileReader(fileName);
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		while ((line = bufferedReader.readLine()) != null) {
+			fileLoad.add(line);
 		}
+		bufferedReader.close();
 		return fileLoad;
 	}
-//creates or overwrites a file, then writes to it
-	public static void writeFile(ArrayList<String> load, String fileName) {
-		try {
-			PrintWriter writer = new PrintWriter(fileName);
-			for (int i = 0; i < load.size(); i++){
-				writer.println(load.get(i));
-			}
-			writer.close();
-		} catch (Exception e) {
-			System.out.println("Could not create a file with the name " + fileName + ".");
-			e.printStackTrace();
+
+	/**
+	 * 
+	 * @param load
+	 * @param fileName
+	 * @throws FileNotFoundException
+	 */
+	public static void writeFile(ArrayList<String> load, String fileName) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter(fileName);
+		for (int i = 0; i < load.size(); i++){
+			writer.println(load.get(i));
 		}
+		writer.close();
 	}
 }

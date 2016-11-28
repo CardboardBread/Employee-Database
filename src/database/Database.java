@@ -1,13 +1,18 @@
 package database;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import display.MainMenu;
-import display.SaveDatabaseAs;
+import display.Global;
 
 public class Database {
+	
 	public static final String empSplitter = ",";
+	public static final int databaseWidth = 2;
+	
 	public static String workingFile;
 	public static OpenHashTable table;
 
@@ -15,36 +20,39 @@ public class Database {
 		try {
 			MainMenu frame = new MainMenu();
 			frame.setVisible(true);
+			newDatabase();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void newDatabase (int count) {
-		table = new OpenHashTable(count);
+	public static void newDatabase () {
+		table = new OpenHashTable(databaseWidth);
 		workingFile = null;
-
-	}
-	
-	public static void newDatabase (int count, String name) {
-		table = new OpenHashTable(count);
-		workingFile = name;
 	}
 	
 	/**
 	 * Attempts to save the database with a previously defined working file name.
 	 * If no name is found, an attempt to save as will be made.
 	 */
-	public static void saveDatabase () {
+	public static boolean saveDatabase () {
 		if (workingFile != null) {
 			ArrayList<Employee> empOut = table.toList();
 			ArrayList<String> strOut = new ArrayList<String>();
 			for (Employee emp : empOut) {
 				strOut.add(employeeToString(emp));
 			}
-			FileLoader.writeFile(strOut, workingFile);
+			try {
+				FileLoader.writeFile(strOut, workingFile);
+				return true;
+			} catch (FileNotFoundException e) {
+				System.out.println("Failed to save file to " + workingFile);
+				e.printStackTrace();
+				return false;
+			}
 		} else {
 			saveDatabaseAs();
+			return true;
 		}
 	}
 	
@@ -53,7 +61,7 @@ public class Database {
 	 */
 	public static void saveDatabaseAs () {
 		try {
-			SaveDatabaseAs frame = new SaveDatabaseAs();
+			Database frame = new Database();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,7 +70,7 @@ public class Database {
 	
 	/**
 	 * Called once the user has finished inputting data, which it will then use to write the current database to file.
-	 * @param fileName The name of the file to be written to.
+	 * @param fileName the name of the file to be written to.
 	 */
 	public static void finishSaveAs (String fileName) {
 		ArrayList<Employee> empOut = table.toList();
@@ -70,23 +78,51 @@ public class Database {
 		for (Employee emp : empOut) {
 			strOut.add(employeeToString(emp));
 		}
-		FileLoader.writeFile(strOut, fileName);
+		try {
+			FileLoader.writeFile(strOut, fileName);
+		} catch (FileNotFoundException e) {
+			System.out.println("Failed to save file to " + fileName);
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadDatabase () {
+		
 	}
 	
 	/**
 	 * Attempts to read the provided file from the filesystem, and translate its contents into the hash table.
-	 * @param fileName The file to be read from.
+	 * @param fileName the file to be read from.
 	 */
-	public static void loadDatabase (String fileName) {
-		ArrayList<String> contents = FileLoader.readFile(fileName);
-		for (String str : contents) {
-			table.addEmployee(storageToEmployee(str));
+	public static boolean finishLoad (String fileName) {
+		ArrayList<String> contents = null;
+		try {
+			contents = FileLoader.readFile(fileName);
+			for (String str : contents) {
+				table.addEmployee(storageToEmployee(str));
+			}
+			workingFile = fileName;
+			return true;
+		} catch (FileNotFoundException e) {
+			System.out.println("File " + fileName + " not found.");
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
-		workingFile = fileName;
 	}
 	
+	/**
+	 * Called from external classes to submit an employee object to either replace an existing or add an employee.
+	 * @param subject the employee object that will enter the database.
+	 */
 	public static void submitEmployee (Employee subject) {
-		
+		if (table.searchEmployee(subject.getNum()) != null) {
+			replaceEmployee(subject);
+		} else {
+			table.addEmployee(subject);
+		}
 	}
 
 	/**
@@ -95,34 +131,15 @@ public class Database {
 	 * @return the employee object that has been removed from the hash table.
 	 */
 	public static Employee deleteEmployee (int ident) {
-		Employee target = table.searchEmployee(ident);
-		Employee out;
-		if (!(target == null)) {
-			out = table.removeEmployee(ident);
-			return out;
-		} else {
-			return null;
-		}
+		Employee out = table.removeEmployee(ident);
+		return out;
 	}
 	
-	public static void editEmployeee (int ident) {
-		// open edit record dialog
-	}
-	
-	public static void finishEdit (Employee subject) {
-		// edit record dialog call this with object to change
-	}
-	
-	public static void replaceEmployee (int oldEmp) {
-		// open replace record dialog
-	}
-	
-	public static void finishReplace (Employee subject) {
-		// replace record dialog call
-	}
-	
-	public static Employee searchEmployee (int ident) {
-		return table.searchEmployee(ident);
+	public static Employee replaceEmployee (Employee subject) {
+		Employee old = table.searchEmployee(subject.getNum());
+		table.removeEmployee(old.getNum());
+		table.addEmployee(subject);
+		return old;
 	}
 	
 	/**

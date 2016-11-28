@@ -1,6 +1,5 @@
 package display;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,24 +8,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import database.Database;
-
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import javax.swing.JSplitPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 
-public class SaveDatabaseAs extends JFrame {
+public class Global extends JFrame {
 
+	private static final long serialVersionUID = 2355362759797182589L;
 	private JPanel contentPane;
 	private JLabel nameLabel;
 	private JTextField nameField;
@@ -41,7 +34,7 @@ public class SaveDatabaseAs extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SaveDatabaseAs frame = new SaveDatabaseAs();
+					Global frame = new Global("test");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,8 +46,8 @@ public class SaveDatabaseAs extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SaveDatabaseAs() {
-		setTitle("Save");
+	public Global(String title) {
+		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 232, 150);
 		contentPane = new JPanel();
@@ -123,7 +116,7 @@ public class SaveDatabaseAs extends JFrame {
 	public void submit() {
 		if (!name.isEmpty()) {
 			System.out.println(name);
-			Database.finishSaveAs(name);
+			database.Database.finishSaveAs(name);
 			setVisible(false);
 			dispose();
 		}

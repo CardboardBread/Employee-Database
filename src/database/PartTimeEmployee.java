@@ -1,6 +1,7 @@
 package database;
 
 public class PartTimeEmployee extends Employee {
+	
 	private float hourlyWage;
 	private int workTerm;
 	private float hoursPerWeek;

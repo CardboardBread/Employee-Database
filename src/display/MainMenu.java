@@ -33,11 +33,13 @@ import java.awt.Color;
 import javax.swing.AbstractListModel;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class MainMenu extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField searchField;
-	private ArrayList<String> employeeList;
 
 	/**
 	 * Launch the application.
@@ -86,6 +88,11 @@ public class MainMenu extends JFrame {
 		GlobalContainer.setLayout(gbl_GlobalContainer);
 		
 		JButton newButton = new JButton("New");
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				database.Database.newDatabase();
+			}
+		});
 		GridBagConstraints gbc_newButton = new GridBagConstraints();
 		gbc_newButton.fill = GridBagConstraints.BOTH;
 		gbc_newButton.insets = new Insets(0, 0, 0, 5);
@@ -94,6 +101,11 @@ public class MainMenu extends JFrame {
 		GlobalContainer.add(newButton, gbc_newButton);
 		
 		JButton saveDatabaseButton = new JButton("Save");
+		saveDatabaseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				database.Database.saveDatabase();
+			}
+		});
 		GridBagConstraints gbc_saveDatabaseButton = new GridBagConstraints();
 		gbc_saveDatabaseButton.fill = GridBagConstraints.BOTH;
 		gbc_saveDatabaseButton.insets = new Insets(0, 3, 0, 5);
@@ -102,6 +114,11 @@ public class MainMenu extends JFrame {
 		GlobalContainer.add(saveDatabaseButton, gbc_saveDatabaseButton);
 		
 		JButton btnSaveAs = new JButton("Save As...");
+		btnSaveAs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				database.Database.saveDatabaseAs();
+			}
+		});
 		GridBagConstraints gbc_btnSaveAs = new GridBagConstraints();
 		gbc_btnSaveAs.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSaveAs.gridx = 2;
@@ -109,6 +126,11 @@ public class MainMenu extends JFrame {
 		GlobalContainer.add(btnSaveAs, gbc_btnSaveAs);
 		
 		JButton loadDatabaseButton = new JButton("Load");
+		loadDatabaseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				database.Database.loadDatabase();
+			}
+		});
 		GridBagConstraints gbc_loadDatabaseButton = new GridBagConstraints();
 		gbc_loadDatabaseButton.fill = GridBagConstraints.BOTH;
 		gbc_loadDatabaseButton.insets = new Insets(0, 3, 0, 0);
@@ -244,6 +266,10 @@ public class MainMenu extends JFrame {
 		gbc_ListHolder.gridx = 0;
 		gbc_ListHolder.gridy = 0;
 		ListContainer.add(ListHolder, gbc_ListHolder);
+		
+	}
+	
+	public static void populate (ArrayList<database.Employee> list) {
 		
 	}
 	
