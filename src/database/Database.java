@@ -24,8 +24,7 @@ public class Database {
 		table = new OpenHashTable(count);
 		workingFile = null;
 
-	
-
+	}
 	
 	public static void newDatabase (int count, String name) {
 		table = new OpenHashTable(count);
