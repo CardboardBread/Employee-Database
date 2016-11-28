@@ -642,11 +642,6 @@ public class Record extends JFrame {
 		}
 	}
 	
-	public void swapState(JRadioButton issuer, JRadioButton opposite) {
-		issuer.setSelected(true);
-		opposite.setSelected(false);
-	}
-	
 	public void cancel() {
 		setVisible(false);
 		dispose();
