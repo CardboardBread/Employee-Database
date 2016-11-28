@@ -1,6 +1,5 @@
 package display;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,16 +11,11 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JRadioButton;
-import javax.swing.JSeparator;
 import java.awt.Component;
 import javax.swing.Box;
-import javax.swing.JTabbedPane;
 import javax.swing.JButton;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -48,7 +42,10 @@ import javax.swing.DefaultComboBoxModel;
 
 public class Record extends JFrame {
 
+	private static final long serialVersionUID = 6107647818353986406L;
 	private final int calendarWorkingDays = 261;
+	private final int xLength = 500;
+	private final int yLength = 370;
 	
 	private JPanel contentPane;
 	private JTextField nameEntryField;
@@ -111,7 +108,7 @@ public class Record extends JFrame {
 	public Record(String title, Employee subject) {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 490, 330);
+		setBounds(100, 100, xLength, yLength);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -119,7 +116,7 @@ public class Record extends JFrame {
 		gbl_contentPane.columnWidths = new int[] {0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		if (subject != null) {
@@ -151,14 +148,6 @@ public class Record extends JFrame {
 		gbc_nameField.gridy = 0;
 		contentPane.add(nameField, gbc_nameField);
 		
-		Component nameStrut = Box.createHorizontalStrut(20);
-		GridBagConstraints gbc_nameStrut = new GridBagConstraints();
-		gbc_nameStrut.anchor = GridBagConstraints.WEST;
-		gbc_nameStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_nameStrut.gridx = 1;
-		gbc_nameStrut.gridy = 0;
-		contentPane.add(nameStrut, gbc_nameStrut);
-		
 		nameEntryField = new JTextField();
 		nameEntryField.setText(firstName + " " + lastName);
 		addChangeListener(nameEntryField, e -> {
@@ -169,7 +158,7 @@ public class Record extends JFrame {
 		GridBagConstraints gbc_nameEntryField = new GridBagConstraints();
 		gbc_nameEntryField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nameEntryField.gridwidth = 2;
-		gbc_nameEntryField.insets = new Insets(5, 0, 5, 5);
+		gbc_nameEntryField.insets = new Insets(5, 0, 5, 0);
 		gbc_nameEntryField.gridx = 2;
 		gbc_nameEntryField.gridy = 0;
 		contentPane.add(nameEntryField, gbc_nameEntryField);
@@ -183,12 +172,12 @@ public class Record extends JFrame {
 		gbc_identField.gridy = 1;
 		contentPane.add(identField, gbc_identField);
 		
-		Component identStrut = Box.createHorizontalStrut(20);
-		GridBagConstraints gbc_identStrut = new GridBagConstraints();
-		gbc_identStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_identStrut.gridx = 1;
-		gbc_identStrut.gridy = 1;
-		contentPane.add(identStrut, gbc_identStrut);
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
+		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut.gridx = 1;
+		gbc_horizontalStrut.gridy = 1;
+		contentPane.add(horizontalStrut, gbc_horizontalStrut);
 		
 		identEntryField = new JTextField();
 		identEntryField.setText(Integer.toString(subject.getNum()));
@@ -196,7 +185,7 @@ public class Record extends JFrame {
 		GridBagConstraints gbc_identEntryField = new GridBagConstraints();
 		gbc_identEntryField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_identEntryField.gridwidth = 2;
-		gbc_identEntryField.insets = new Insets(0, 0, 5, 5);
+		gbc_identEntryField.insets = new Insets(0, 0, 5, 0);
 		gbc_identEntryField.gridx = 2;
 		gbc_identEntryField.gridy = 1;
 		contentPane.add(identEntryField, gbc_identEntryField);
@@ -210,13 +199,6 @@ public class Record extends JFrame {
 		gbc_workField.gridy = 2;
 		contentPane.add(workField, gbc_workField);
 		
-		Component workStrut = Box.createHorizontalStrut(20);
-		GridBagConstraints gbc_workStrut = new GridBagConstraints();
-		gbc_workStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_workStrut.gridx = 1;
-		gbc_workStrut.gridy = 2;
-		contentPane.add(workStrut, gbc_workStrut);
-		
 		workEntryField = new JComboBox<String>();
 		workEntryField.setModel(new DefaultComboBoxModel<String>(new String[] {"Brampton", "Burlington", "Etobicoke", "Markham", "Milton", "Mississauga", "North York", "Oakville", "Richmond Hill", "Scarborough", "Toronto", "Vaughan"}));
 		workEntryField.setEditable(true);
@@ -227,7 +209,7 @@ public class Record extends JFrame {
 		});
 		GridBagConstraints gbc_workEntryField = new GridBagConstraints();
 		gbc_workEntryField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_workEntryField.insets = new Insets(0, 0, 5, 5);
+		gbc_workEntryField.insets = new Insets(0, 0, 5, 0);
 		gbc_workEntryField.gridwidth = 2;
 		gbc_workEntryField.gridx = 2;
 		gbc_workEntryField.gridy = 2;
@@ -241,13 +223,6 @@ public class Record extends JFrame {
 		gbc_sexField.gridy = 3;
 		contentPane.add(sexField, gbc_sexField);
 		
-		Component sexStrut = Box.createHorizontalStrut(20);
-		GridBagConstraints gbc_sexStrut = new GridBagConstraints();
-		gbc_sexStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_sexStrut.gridx = 1;
-		gbc_sexStrut.gridy = 3;
-		contentPane.add(sexStrut, gbc_sexStrut);
-		
 		sexEntryField = new JComboBox<String>();
 		sexEntryField.setModel(new DefaultComboBoxModel(new String[] {"Male", "Female", "Other"}));
 		sexEntryField.setEditable(true);
@@ -259,7 +234,7 @@ public class Record extends JFrame {
 		GridBagConstraints gbc_sexEntryField = new GridBagConstraints();
 		gbc_sexEntryField.gridwidth = 2;
 		gbc_sexEntryField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_sexEntryField.insets = new Insets(0, 0, 5, 5);
+		gbc_sexEntryField.insets = new Insets(0, 0, 5, 0);
 		gbc_sexEntryField.gridx = 2;
 		gbc_sexEntryField.gridy = 3;
 		contentPane.add(sexEntryField, gbc_sexEntryField);
@@ -270,14 +245,6 @@ public class Record extends JFrame {
 		gbc_typeField.gridx = 0;
 		gbc_typeField.gridy = 4;
 		contentPane.add(typeField, gbc_typeField);
-		
-		Component typeStrut = Box.createHorizontalStrut(20);
-		GridBagConstraints gbc_typeStrut = new GridBagConstraints();
-		gbc_typeStrut.anchor = GridBagConstraints.WEST;
-		gbc_typeStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_typeStrut.gridx = 1;
-		gbc_typeStrut.gridy = 4;
-		contentPane.add(typeStrut, gbc_typeStrut);
 		
 		fullTimeButton = new JRadioButton("Full Time");
 		fullTimeButton.addActionListener(new ActionListener() {
@@ -307,23 +274,16 @@ public class Record extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_partTimeButton = new GridBagConstraints();
-		gbc_partTimeButton.insets = new Insets(0, 0, 5, 5);
+		gbc_partTimeButton.insets = new Insets(0, 0, 5, 0);
 		gbc_partTimeButton.gridx = 3;
 		gbc_partTimeButton.gridy = 4;
 		contentPane.add(partTimeButton, gbc_partTimeButton);
-		
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cancel();
-			}
-		});
 		
 		JPanel typeContainer = new JPanel();
 		typeContainer.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		GridBagConstraints gbc_typeContainer = new GridBagConstraints();
 		gbc_typeContainer.gridwidth = 4;
-		gbc_typeContainer.insets = new Insets(0, 0, 5, 5);
+		gbc_typeContainer.insets = new Insets(0, 0, 5, 0);
 		gbc_typeContainer.fill = GridBagConstraints.BOTH;
 		gbc_typeContainer.gridx = 0;
 		gbc_typeContainer.gridy = 5;
@@ -593,11 +553,6 @@ public class Record extends JFrame {
 		gbc_partHPWField.gridx = 1;
 		gbc_partHPWField.gridy = 3;
 		partContainer.add(partHPWField, gbc_partHPWField);
-		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
-		gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
-		gbc_cancelButton.gridx = 2;
-		gbc_cancelButton.gridy = 6;
-		contentPane.add(cancelButton, gbc_cancelButton);
 		
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
@@ -605,9 +560,22 @@ public class Record extends JFrame {
 				submit();
 			}
 		});
+		
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancel();
+			}
+		});
+		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+		gbc_cancelButton.anchor = GridBagConstraints.WEST;
+		gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
+		gbc_cancelButton.gridx = 0;
+		gbc_cancelButton.gridy = 6;
+		contentPane.add(cancelButton, gbc_cancelButton);
 		GridBagConstraints gbc_okButton = new GridBagConstraints();
+		gbc_okButton.anchor = GridBagConstraints.EAST;
 		gbc_okButton.ipadx = 20;
-		gbc_okButton.insets = new Insets(0, 0, 0, 5);
 		gbc_okButton.gridx = 3;
 		gbc_okButton.gridy = 6;
 		contentPane.add(okButton, gbc_okButton);
@@ -615,7 +583,6 @@ public class Record extends JFrame {
 	
 	public void submit() {
 		if (employeeType) {
-			// full time
 			database.Database.finishEdit(new FullTimeEmployee(
 					Integer.parseInt(ident),
 					firstName,
