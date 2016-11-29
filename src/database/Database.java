@@ -26,6 +26,9 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Clears the database by recycling its hashtable handler.
+	 */
 	public static void newDatabase () {
 		table = new OpenHashTable(databaseWidth);
 		workingFile = null;
@@ -35,24 +38,11 @@ public class Database {
 	 * Attempts to save the database with a previously defined working file name.
 	 * If no name is found, an attempt to save as will be made.
 	 */
-	public static boolean saveDatabase () {
+	public static void saveDatabase () {
 		if (workingFile != null) {
-			ArrayList<Employee> empOut = table.toList();
-			ArrayList<String> strOut = new ArrayList<String>();
-			for (Employee emp : empOut) {
-				strOut.add(employeeToString(emp));
-			}
-			try {
-				FileLoader.writeFile(strOut, workingFile);
-				return true;
-			} catch (FileNotFoundException e) {
-				System.out.println("Failed to save file to " + workingFile);
-				e.printStackTrace();
-				return false;
-			}
+			finishSaveAs(workingFile);
 		} else {
 			saveDatabaseAs();
-			return true;
 		}
 	}
 	
@@ -61,7 +51,7 @@ public class Database {
 	 */
 	public static void saveDatabaseAs () {
 		try {
-			Database frame = new Database();
+			Global frame = new Global("Save As...", true, "");
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,7 +66,13 @@ public class Database {
 		ArrayList<Employee> empOut = table.toList();
 		ArrayList<String> strOut = new ArrayList<String>();
 		for (Employee emp : empOut) {
-			strOut.add(employeeToString(emp));
+			if (emp.getClass() == FullTimeEmployee.class) {
+				strOut.add(fullTimeToString((FullTimeEmployee) emp));
+			} else if (emp.getClass() == PartTimeEmployee.class) {
+				strOut.add(partTimeToString((PartTimeEmployee) emp));
+			} else {
+				strOut.add(employeeToString(emp));
+			}
 		}
 		try {
 			FileLoader.writeFile(strOut, fileName);
@@ -86,12 +82,20 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Initiates the load database GUI.
+	 */
 	public static void loadDatabase () {
-		
+		try {
+			Global frame = new Global("Load...", false, "");
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
-	 * Attempts to read the provided file from the filesystem, and translate its contents into the hash table.
+	 * Attempts to read the provided file from the filesystem, and translate its contents into the hashtable.
 	 * @param fileName the file to be read from.
 	 */
 	public static boolean finishLoad (String fileName) {
@@ -128,13 +132,19 @@ public class Database {
 	/**
 	 * Removes an employee containing the provided ID.
 	 * @param ident the identification number of the employee that is to be removed.
-	 * @return the employee object that has been removed from the hash table.
+	 * @return the employee object that has been removed from the hashtable.
 	 */
 	public static Employee deleteEmployee (int ident) {
 		Employee out = table.removeEmployee(ident);
 		return out;
 	}
 	
+	
+	/**
+	 * Using the identification of the provided employee, the original employee will be removed and the new one is put in the previous's place.
+	 * @param subject the employee to replace the older version
+	 * @return the employee pulled out of the hashtable
+	 */
 	public static Employee replaceEmployee (Employee subject) {
 		Employee old = table.searchEmployee(subject.getNum());
 		table.removeEmployee(old.getNum());

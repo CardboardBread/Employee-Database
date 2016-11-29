@@ -39,7 +39,6 @@ import javax.swing.DefaultComboBoxModel;
 public class Record extends JFrame {
 
 	private static final long serialVersionUID = 6107647818353986406L;
-	private final int calendarWorkingDays = 261;
 	private final int xLength = 500;
 	private final int yLength = 370;
 	
@@ -89,7 +88,7 @@ public class Record extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Record frame = new Record("Test GUI", new FullTimeEmployee(10, "yeah","yeah","yeah","yeah",0.25F,0.25F,1));
+					Record frame = new Record("Test GUI", new FullTimeEmployee(10, "test","man","yes","place land",0.25F,0.25F,1));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

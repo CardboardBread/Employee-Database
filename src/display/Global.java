@@ -25,7 +25,9 @@ public class Global extends JFrame {
 	private JTextField nameField;
 	private JButton okButton;
 	private JButton cancelButton;
+	
 	private String name;
+	private boolean function;
 
 	/**
 	 * Launch the application.
@@ -34,7 +36,7 @@ public class Global extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Global frame = new Global("test");
+					Global frame = new Global("test", true, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +48,7 @@ public class Global extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Global(String title) {
+	public Global(String title, boolean type, String preText) {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 232, 150);
@@ -59,6 +61,7 @@ public class Global extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0};
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0};
 		contentPane.setLayout(gbl_contentPane);
+		function = type;
 		
 		nameLabel = new JLabel("Database Name:");
 		GridBagConstraints gbc_nameLabel = new GridBagConstraints();
@@ -69,6 +72,7 @@ public class Global extends JFrame {
 		contentPane.add(nameLabel, gbc_nameLabel);
 		
 		nameField = new JTextField();
+		nameField.setText(preText);
 		nameField.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				name = nameField.getText();
@@ -116,7 +120,11 @@ public class Global extends JFrame {
 	public void submit() {
 		if (!name.isEmpty()) {
 			System.out.println(name);
-			database.Database.finishSaveAs(name);
+			if (function) {
+				database.Database.finishSaveAs(name);
+			} else {
+				database.Database.finishLoad(name);
+			}
 			setVisible(false);
 			dispose();
 		}
