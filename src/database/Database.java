@@ -1,6 +1,5 @@
 package database;
 
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,10 +8,10 @@ import display.MainMenu;
 import display.Global;
 
 public class Database {
-	
+
 	public static final String empSplitter = ",";
 	public static final int databaseWidth = 2;
-	
+
 	public static String workingFile;
 	public static OpenHashTable table;
 	public static MainMenu menu;
@@ -26,31 +25,31 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Clears the database by recycling its hashtable handler.
 	 */
-	public static void newDatabase () {
+	public static void newDatabase() {
 		table = new OpenHashTable(databaseWidth);
 		workingFile = null;
 	}
-	
+
 	/**
-	 * Attempts to save the database with a previously defined working file name.
-	 * If no name is found, an attempt to save as will be made.
+	 * Attempts to save the database with a previously defined working file
+	 * name. If no name is found, an attempt to save as will be made.
 	 */
-	public static void saveDatabase () {
+	public static void saveDatabase() {
 		if (workingFile != null) {
 			finishSaveAs(workingFile);
 		} else {
 			saveDatabaseAs();
 		}
 	}
-	
+
 	/**
 	 * Opens a dialog to define the name of the database that is to be saved.
 	 */
-	public static void saveDatabaseAs () {
+	public static void saveDatabaseAs() {
 		try {
 			Global frame = new Global("Save As...", true, "");
 			frame.setVisible(true);
@@ -58,12 +57,15 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Called once the user has finished inputting data, which it will then use to write the current database to file.
-	 * @param fileName the name of the file to be written to.
+	 * Called once the user has finished inputting data, which it will then use
+	 * to write the current database to file.
+	 * 
+	 * @param fileName
+	 *            the name of the file to be written to.
 	 */
-	public static void finishSaveAs (String fileName) {
+	public static void finishSaveAs(String fileName) {
 		ArrayList<Employee> empOut = table.toList();
 		ArrayList<String> strOut = new ArrayList<String>();
 		for (Employee emp : empOut) {
@@ -82,11 +84,11 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Initiates the load database GUI.
 	 */
-	public static void loadDatabase () {
+	public static void loadDatabase() {
 		try {
 			Global frame = new Global("Load...", false, "");
 			frame.setVisible(true);
@@ -94,12 +96,15 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Attempts to read the provided file from the filesystem, and translate its contents into the hashtable.
-	 * @param fileName the file to be read from.
+	 * Attempts to read the provided file from the filesystem, and translate its
+	 * contents into the hashtable.
+	 * 
+	 * @param fileName
+	 *            the file to be read from.
 	 */
-	public static boolean finishLoad (String fileName) {
+	public static boolean finishLoad(String fileName) {
 		ArrayList<String> contents = null;
 		try {
 			contents = FileLoader.readFile(fileName);
@@ -117,12 +122,15 @@ public class Database {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Called from external classes to submit an employee object to either replace an existing or add an employee.
-	 * @param subject the employee object that will enter the database.
+	 * Called from external classes to submit an employee object to either
+	 * replace an existing or add an employee.
+	 * 
+	 * @param subject
+	 *            the employee object that will enter the database.
 	 */
-	public static void submitEmployee (Employee subject) {
+	public static void submitEmployee(Employee subject) {
 		if (table.searchEmployee(subject.getNum()) != null) {
 			replaceEmployee(subject);
 		} else {
@@ -132,112 +140,96 @@ public class Database {
 
 	/**
 	 * Removes an employee containing the provided ID.
-	 * @param ident the identification number of the employee that is to be removed.
+	 * 
+	 * @param ident
+	 *            the identification number of the employee that is to be
+	 *            removed.
 	 * @return the employee object that has been removed from the hashtable.
 	 */
-	public static Employee deleteEmployee (int ident) {
+	public static Employee deleteEmployee(int ident) {
 		Employee out = table.removeEmployee(ident);
 		return out;
 	}
-	
-	
+
 	/**
-	 * Using the identification of the provided employee, the original employee will be removed and the new one is put in the previous's place.
-	 * @param subject the employee to replace the older version
+	 * Using the identification of the provided employee, the original employee
+	 * will be removed and the new one is put in the previous's place.
+	 * 
+	 * @param subject
+	 *            the employee to replace the older version
 	 * @return the employee pulled out of the hashtable
 	 */
-	public static Employee replaceEmployee (Employee subject) {
+	public static Employee replaceEmployee(Employee subject) {
 		Employee old = table.searchEmployee(subject.getNum());
 		table.removeEmployee(old.getNum());
 		table.addEmployee(subject);
 		return old;
 	}
-	
+
 	/**
-	 * Translates a employee data string read from a database file into an employee object.
-	 * @param storage The string to be translated.
+	 * Translates a employee data string read from a database file into an
+	 * employee object.
+	 * 
+	 * @param storage
+	 *            The string to be translated.
 	 * @return The resultant employee object.
 	 */
-	private static Employee storageToEmployee (String storage) {
+	private static Employee storageToEmployee(String storage) {
 		String[] split = storage.split(empSplitter);
 		if (split.length == 10) {
-			return new PartTimeEmployee(Integer.parseInt(split[0]),
-					split[1],
-					split[2],
-					split[3],
-					split[4],
-					Float.parseFloat(split[5]),
-					Float.parseFloat(split[6]),
-					Float.parseFloat(split[7]),
-					Float.parseFloat(split[8]),
-					Integer.parseInt(split[9]));
+			return new PartTimeEmployee(Integer.parseInt(split[0]), split[1], split[2], split[3], split[4],
+					Float.parseFloat(split[5]), Float.parseFloat(split[6]), Float.parseFloat(split[7]),
+					Float.parseFloat(split[8]), Integer.parseInt(split[9]));
 		} else if (split.length == 8) {
-			return new FullTimeEmployee(Integer.parseInt(split[0]),
-					split[1],
-					split[2],
-					split[3],
-					split[4],
-					Float.parseFloat(split[5]),
-					Float.parseFloat(split[6]),
-					Integer.parseInt(split[7]));
+			return new FullTimeEmployee(Integer.parseInt(split[0]), split[1], split[2], split[3], split[4],
+					Float.parseFloat(split[5]), Float.parseFloat(split[6]), Integer.parseInt(split[7]));
 		} else if (split.length == 5) {
-			return new Employee(Integer.parseInt(split[0]),
-					split[1],
-					split[2],
-					split[3],
-					split[4]);
+			return new Employee(Integer.parseInt(split[0]), split[1], split[2], split[3], split[4]);
 		} else {
 			return null;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Translates a base employee object into a write-capable string.
-	 * @param employee The employee object to be transformed.
+	 * 
+	 * @param employee
+	 *            The employee object to be transformed.
 	 * @return The string to be written to file.
 	 */
-	private static String employeeToString (Employee employee) {
-		String out = employee.getNum() + empSplitter
-				+ employee.getFirst() + empSplitter
-				+ employee.getLast() + empSplitter
-				+ employee.getSex() + empSplitter
-				+ employee.getWorkLoc();
+	private static String employeeToString(Employee employee) {
+		String out = employee.getNum() + empSplitter + employee.getFirst() + empSplitter + employee.getLast()
+				+ empSplitter + employee.getSex() + empSplitter + employee.getWorkLoc();
 		return out;
 	}
-	
+
 	/**
 	 * Translate a full time employee into a write-capable string.
-	 * @param employee The employee object to be transformed.
+	 * 
+	 * @param employee
+	 *            The employee object to be transformed.
 	 * @return The string to be written to file.
 	 */
-	private static String fullTimeToString (FullTimeEmployee employee) {
-		String out = employee.getNum() + empSplitter
-				+ employee.getFirst() + empSplitter
-				+ employee.getLast() + empSplitter
-				+ employee.getSex() + empSplitter
-				+ employee.getWorkLoc() + empSplitter
-				+ employee.getSalary() + empSplitter
-				+ employee.getDeductible() + empSplitter
-				+ employee.getSeniority();
+	private static String fullTimeToString(FullTimeEmployee employee) {
+		String out = employee.getNum() + empSplitter + employee.getFirst() + empSplitter + employee.getLast()
+				+ empSplitter + employee.getSex() + empSplitter + employee.getWorkLoc() + empSplitter
+				+ employee.getSalary() + empSplitter + employee.getDeductible() + empSplitter + employee.getSeniority();
 		return out;
 	}
-	
+
 	/**
 	 * Translate a part time employee into a write-capable string.
-	 * @param employee The employee object to be transformed.
+	 * 
+	 * @param employee
+	 *            The employee object to be transformed.
 	 * @return The string to be written to file.
 	 */
-	private static String partTimeToString (PartTimeEmployee employee) {
-		String out = employee.getNum() + empSplitter
-				+ employee.getFirst() + empSplitter
-				+ employee.getLast() + empSplitter
-				+ employee.getSex() + empSplitter
-				+ employee.getWorkLoc() + empSplitter
-				+ employee.getHourlyWage() + empSplitter
-				+ employee.getDeductible() + empSplitter
-				+ employee.getHoursPerWeek() + empSplitter
-				+ employee.getHoursPerYear() + empSplitter
+	private static String partTimeToString(PartTimeEmployee employee) {
+		String out = employee.getNum() + empSplitter + employee.getFirst() + empSplitter + employee.getLast()
+				+ empSplitter + employee.getSex() + empSplitter + employee.getWorkLoc() + empSplitter
+				+ employee.getHourlyWage() + empSplitter + employee.getDeductible() + empSplitter
+				+ employee.getHoursPerWeek() + empSplitter + employee.getHoursPerYear() + empSplitter
 				+ employee.getWorkTerm();
 		return out;
 	}

@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class FileLoader {
-	
+
 	/**
 	 * 
 	 * @param fileName
@@ -36,7 +36,7 @@ public class FileLoader {
 	 */
 	public static void writeFile(ArrayList<String> load, String fileName) throws FileNotFoundException {
 		PrintWriter writer = new PrintWriter(fileName);
-		for (int i = 0; i < load.size(); i++){
+		for (int i = 0; i < load.size(); i++) {
 			writer.println(load.get(i));
 		}
 		writer.close();

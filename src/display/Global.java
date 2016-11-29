@@ -25,7 +25,7 @@ public class Global extends JFrame {
 	private JTextField nameField;
 	private JButton okButton;
 	private JButton cancelButton;
-	
+
 	private String name;
 	private boolean function;
 
@@ -56,13 +56,13 @@ public class Global extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] {0, 0, 0};
-		gbl_contentPane.rowHeights = new int[] {0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0};
-		gbl_contentPane.rowWeights = new double[]{1.0, 1.0};
+		gbl_contentPane.columnWidths = new int[] { 0, 0, 0 };
+		gbl_contentPane.rowHeights = new int[] { 0, 0 };
+		gbl_contentPane.columnWeights = new double[] { 1.0, 1.0 };
+		gbl_contentPane.rowWeights = new double[] { 1.0, 1.0 };
 		contentPane.setLayout(gbl_contentPane);
 		function = type;
-		
+
 		nameLabel = new JLabel("Database Name:");
 		GridBagConstraints gbc_nameLabel = new GridBagConstraints();
 		gbc_nameLabel.anchor = GridBagConstraints.EAST;
@@ -70,16 +70,18 @@ public class Global extends JFrame {
 		gbc_nameLabel.gridx = 0;
 		gbc_nameLabel.gridy = 0;
 		contentPane.add(nameLabel, gbc_nameLabel);
-		
+
 		nameField = new JTextField();
 		nameField.setText(preText);
 		nameField.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				name = nameField.getText();
 			}
+
 			public void removeUpdate(DocumentEvent e) {
 				name = nameField.getText();
 			}
+
 			public void insertUpdate(DocumentEvent e) {
 				name = nameField.getText();
 			}
@@ -91,7 +93,7 @@ public class Global extends JFrame {
 		gbc_nameField.gridy = 0;
 		contentPane.add(nameField, gbc_nameField);
 		nameField.setColumns(10);
-		
+
 		okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -103,7 +105,7 @@ public class Global extends JFrame {
 		gbc_okButton.gridx = 0;
 		gbc_okButton.gridy = 1;
 		contentPane.add(okButton, gbc_okButton);
-		
+
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -116,7 +118,7 @@ public class Global extends JFrame {
 		gbc_cancelButton.gridy = 1;
 		contentPane.add(cancelButton, gbc_cancelButton);
 	}
-	
+
 	public void submit() {
 		if (!name.isEmpty()) {
 			System.out.println(name);
@@ -129,7 +131,7 @@ public class Global extends JFrame {
 			dispose();
 		}
 	}
-	
+
 	public void cancel() {
 		setVisible(false);
 		dispose();
