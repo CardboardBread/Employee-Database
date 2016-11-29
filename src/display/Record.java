@@ -147,10 +147,10 @@ public class Record extends JFrame {
 		nameEntryField = new JTextField();
 		nameEntryField.setText(firstName + " " + lastName);
 		addChangeListener(nameEntryField, e -> {
-				String[] split = nameEntryField.getText().split(" ");
-				firstName = split[0];
-				lastName = split[split.length - 1];
-				});
+			String[] split = nameEntryField.getText().split(" ");
+			firstName = split[0];
+			lastName = split[split.length - 1];
+			});
 		GridBagConstraints gbc_nameEntryField = new GridBagConstraints();
 		gbc_nameEntryField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nameEntryField.gridwidth = 2;
@@ -315,9 +315,11 @@ public class Record extends JFrame {
 		fullDeductibleField = new JTextField();
 		fullDeductibleField.setText(fullDeductible);
 		addChangeListener(fullDeductibleField, e -> {
-			fullDeductible = fullDeductibleField.getText();
-			annual = Float.toString(Float.parseFloat(salary) * (1 - Float.parseFloat(fullDeductible)));
-			fullAnnualField.setText(annual);
+			if (isFloat(fullDeductibleField.getText())) {
+				fullDeductible = fullDeductibleField.getText();
+				annual = Float.toString(Float.parseFloat(salary) * (1 - Float.parseFloat(fullDeductible)));
+				fullAnnualField.setText(annual);
+			}
 			});
 		GridBagConstraints gbc_fullDeductibleField = new GridBagConstraints();
 		gbc_fullDeductibleField.insets = new Insets(0, 0, 5, 5);
@@ -357,9 +359,11 @@ public class Record extends JFrame {
 		fullSalaryField = new JTextField();
 		fullSalaryField.setText(salary);
 		addChangeListener(fullSalaryField, e -> {
-			salary = fullSalaryField.getText();
-			annual = Float.toString(Float.parseFloat(salary) * (1 - Float.parseFloat(fullDeductible)));
-			fullAnnualField.setText(annual);
+			if (isFloat(fullSalaryField.getText())) {
+				salary = fullSalaryField.getText();
+				annual = Float.toString(Float.parseFloat(salary) * (1 - Float.parseFloat(fullDeductible)));
+				fullAnnualField.setText(annual);
+			}
 			});
 		GridBagConstraints gbc_fullSalaryField = new GridBagConstraints();
 		gbc_fullSalaryField.insets = new Insets(0, 0, 5, 0);
@@ -415,12 +419,14 @@ public class Record extends JFrame {
 		partDeductibleField = new JTextField();
 		partDeductibleField.setText(partDeductible);
 		addChangeListener(partDeductibleField, e -> {
+			if (isFloat(partDeductibleField.getText())) {
 				partDeductible = partDeductibleField.getText();
 				weeklyWage = Float.toString((Float.parseFloat(hourlyWage) * Float.parseFloat(hoursPerWeek)) * (1 - Float.parseFloat(partDeductible)));
 				yearlyWage = Float.toString((Float.parseFloat(hourlyWage) * Float.parseFloat(hoursPerYear)) * (1 - Float.parseFloat(partDeductible)));
 				partWeeklyWageField.setText(weeklyWage);
 				partYearlyWageField.setText(yearlyWage);
-				});
+			}
+			});
 		GridBagConstraints gbc_partDeductibleField = new GridBagConstraints();
 		gbc_partDeductibleField.insets = new Insets(0, 0, 5, 5);
 		gbc_partDeductibleField.fill = GridBagConstraints.HORIZONTAL;
@@ -439,10 +445,12 @@ public class Record extends JFrame {
 		
 		partHPYField = new JTextField();
 		addChangeListener(partHPYField, e -> {
+			if (isFloat(partHPYField.getText())) {
 				hoursPerYear = partHPYField.getText();
 				yearlyWage = Float.toString((Float.parseFloat(hourlyWage) * Float.parseFloat(hoursPerYear)) * (1 - Float.parseFloat(partDeductible)));
 				partYearlyWageField.setText(yearlyWage);
-				});
+			}
+			});
 		GridBagConstraints gbc_partHPYField = new GridBagConstraints();
 		gbc_partHPYField.insets = new Insets(0, 0, 5, 0);
 		gbc_partHPYField.fill = GridBagConstraints.HORIZONTAL;
@@ -497,11 +505,13 @@ public class Record extends JFrame {
 		
 		partWageField = new JTextField();
 		addChangeListener(partWageField, e -> {
-			hourlyWage = partWageField.getText();
-			weeklyWage = Float.toString((Float.parseFloat(hourlyWage) * Float.parseFloat(hoursPerWeek)) * (1 - Float.parseFloat(partDeductible)));
-			yearlyWage = Float.toString((Float.parseFloat(hourlyWage) * Float.parseFloat(hoursPerYear)) * (1 - Float.parseFloat(partDeductible)));
-			partWeeklyWageField.setText(weeklyWage);
-			partYearlyWageField.setText(yearlyWage);
+			if (isFloat(partWageField.getText())) {
+				hourlyWage = partWageField.getText();
+				weeklyWage = Float.toString((Float.parseFloat(hourlyWage) * Float.parseFloat(hoursPerWeek)) * (1 - Float.parseFloat(partDeductible)));
+				yearlyWage = Float.toString((Float.parseFloat(hourlyWage) * Float.parseFloat(hoursPerYear)) * (1 - Float.parseFloat(partDeductible)));
+				partWeeklyWageField.setText(weeklyWage);
+				partYearlyWageField.setText(yearlyWage);
+			}
 			});
 		partWageField.setColumns(10);
 		GridBagConstraints gbc_partWageField = new GridBagConstraints();
@@ -538,10 +548,12 @@ public class Record extends JFrame {
 		
 		partHPWField = new JTextField();
 		addChangeListener(partHPWField, e -> {
+			if (isFloat(partHPWField.getText())) {
 				hoursPerWeek = partHPWField.getText();
 				weeklyWage = Float.toString((Float.parseFloat(hourlyWage) * Float.parseFloat(hoursPerWeek)) * (1 - Float.parseFloat(partDeductible)));
 				partWeeklyWageField.setText(weeklyWage);
-				});
+			}
+			});
 		partHPWField.setColumns(10);
 		GridBagConstraints gbc_partHPWField = new GridBagConstraints();
 		gbc_partHPWField.insets = new Insets(0, 0, 5, 5);
@@ -580,34 +592,54 @@ public class Record extends JFrame {
 	public void submit() {
 		if (employeeType) {
 			database.Database.submitEmployee(new FullTimeEmployee(
-					Integer.parseInt(ident),
-					firstName,
-					lastName,
-					sex,
-					workLocation,
-					Float.parseFloat(salary),
-					Float.parseFloat(fullDeductible),
-					Integer.parseInt(seniority)
-					));
+				Integer.parseInt(ident),
+				firstName,
+				lastName,
+				sex,
+				workLocation,
+				Float.parseFloat(salary),
+				Float.parseFloat(fullDeductible),
+				Integer.parseInt(seniority)
+				));
 		} else {
 			database.Database.submitEmployee(new PartTimeEmployee(
-					Integer.parseInt(ident),
-					firstName,
-					lastName,
-					sex,
-					workLocation,
-					Float.parseFloat(hourlyWage),
-					Float.parseFloat(partDeductible),
-					Float.parseFloat(hoursPerWeek),
-					Float.parseFloat(hoursPerYear),
-					Integer.parseInt(workTerm)
-					));
+				Integer.parseInt(ident),
+				firstName,
+				lastName,
+				sex,
+				workLocation,
+				Float.parseFloat(hourlyWage),
+				Float.parseFloat(partDeductible),
+				Float.parseFloat(hoursPerWeek),
+				Float.parseFloat(hoursPerYear),
+				Integer.parseInt(workTerm)
+				));
 		}
 	}
 	
 	public void cancel() {
 		setVisible(false);
 		dispose();
+	}
+	
+	public boolean isFloat (String str) {
+		try {
+			Float.parseFloat(str);
+		} catch (NumberFormatException nfe) {
+			nfe.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isInt (String str) {
+		try {
+			Integer.parseInt(str);
+		} catch (NumberFormatException nfe) {
+			nfe.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	
 	/**
