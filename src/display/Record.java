@@ -60,6 +60,8 @@ public class Record extends JFrame {
 	private JTextField partWageField;
 	private JTextField partHPWField;
 	private JTextField partHPYField;
+	private JTextField partWeeklyWageField;
+	private JTextField partYearlyWageField;
 	
 	private boolean employeeType;
 	private String firstName;
@@ -78,8 +80,6 @@ public class Record extends JFrame {
 	private String annual;
 	private String weeklyWage;
 	private String yearlyWage;
-	private JTextField partWeeklyWageField;
-	private JTextField partYearlyWageField;
 
 	/**
 	 * Launch the application.

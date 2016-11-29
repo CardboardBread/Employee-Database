@@ -5,42 +5,29 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
 
-import javax.swing.JTextArea;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JTree;
-import javax.swing.JList;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JSplitPane;
-import javax.swing.JToolBar;
-import javax.swing.JTable;
 import javax.swing.JLabel;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.AbstractListModel;
-import javax.swing.table.DefaultTableModel;
+
+import database.Employee;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
 
 public class MainMenu extends JFrame {
 
+	private static final long serialVersionUID = 1899909472206190456L;
 	private JPanel contentPane;
 	private JTextField searchField;
-
+	private JList<String> employeeList;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +35,7 @@ public class MainMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainMenu frame = new MainMenu();
+					MainMenu frame = new MainMenu("Title goes here...");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +47,8 @@ public class MainMenu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainMenu() {
+	public MainMenu(String title) {
+		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
@@ -229,6 +217,7 @@ public class MainMenu extends JFrame {
 		ViewContainer.setLayout(new BorderLayout(0, 0));
 		
 		JPanel ListContainer = new JPanel();
+		ListContainer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_ListContainer = new GridBagConstraints();
 		gbc_ListContainer.insets = new Insets(0, 0, 5, 5);
 		gbc_ListContainer.fill = GridBagConstraints.BOTH;
@@ -245,14 +234,12 @@ public class MainMenu extends JFrame {
 		JButton previousPageButton = new JButton("Previous");
 		GridBagConstraints gbc_previousPageButton = new GridBagConstraints();
 		gbc_previousPageButton.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_previousPageButton.insets = new Insets(0, 0, 5, 5);
 		gbc_previousPageButton.gridx = 0;
 		gbc_previousPageButton.gridy = 1;
 		ListContainer.add(previousPageButton, gbc_previousPageButton);
 		
 		JButton nextPageButton = new JButton("Next");
 		GridBagConstraints gbc_nextPageButton = new GridBagConstraints();
-		gbc_nextPageButton.insets = new Insets(0, 0, 5, 0);
 		gbc_nextPageButton.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_nextPageButton.gridx = 1;
 		gbc_nextPageButton.gridy = 1;
@@ -267,10 +254,20 @@ public class MainMenu extends JFrame {
 		gbc_ListHolder.gridy = 0;
 		ListContainer.add(ListHolder, gbc_ListHolder);
 		
-	}
-	
-	public static void populate (ArrayList<database.Employee> list) {
+		employeeList = new JList<String>();
+		ListHolder.add(employeeList);
 		
 	}
 	
+	public void populate (ArrayList<Employee> in) {
+		ArrayList<String> data = new ArrayList<String>();
+		for (Employee emp : in) {
+			data.add(emp.toString());
+		}
+		employeeList.setListData((String[]) data.toArray());
+	}
+	
+	public JList<String> getEmployeeList() {
+		return employeeList;
+	}
 }

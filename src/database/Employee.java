@@ -23,4 +23,10 @@ public class Employee {
 	
 	public void setWork (String value) { workLocation = value; }
 	public void setNum (int value) { empNumber = value; }
+	
+	public String toString() {
+		return getNum() + " | " +
+				getFirst() + " " +
+				getLast();
+	}
 }

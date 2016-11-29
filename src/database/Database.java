@@ -15,11 +15,12 @@ public class Database {
 	
 	public static String workingFile;
 	public static OpenHashTable table;
+	public static MainMenu menu;
 
 	public static void main(String[] args) {
 		try {
-			MainMenu frame = new MainMenu();
-			frame.setVisible(true);
+			menu = new MainMenu("Database");
+			menu.setVisible(true);
 			newDatabase();
 		} catch (Exception e) {
 			e.printStackTrace();

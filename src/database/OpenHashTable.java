@@ -45,12 +45,12 @@ public class OpenHashTable
 	 * @return The employee that the search finds.
 	 */
 	public Employee searchEmployee(int employeeNum) {
-		int bIndex = -1;
-		int sIndex = -1;
+		//int bIndex = -1;
+		//int sIndex = -1;
 		for (ArrayList<Employee> bucket : buckets) {
-			bIndex++;
+			//bIndex++;
 			for (Employee employee : bucket) {
-				sIndex++;
+				//sIndex++;
 				if (employeeNum == employee.getNum()) {
 					//System.out.println("Found employee " + sIndex + " at bucket " + bIndex);
 					return employee;
