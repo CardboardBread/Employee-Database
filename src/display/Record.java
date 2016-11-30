@@ -135,6 +135,23 @@ public class Record extends JFrame {
 				weeklyWage = Float.toString(((PartTimeEmployee) subject).calcWeeklyWage());
 				yearlyWage = Float.toString(((PartTimeEmployee) subject).calcYearlyWage());
 			}
+		} else {
+			firstName = "";
+			lastName = "";
+			ident = "0";
+			sex = "Other";
+			workLocation = "N/A";
+			fullDeductible = "0";
+			salary = "0";
+			seniority = "0";
+			annual = "0";
+			partDeductible = "0";
+			workTerm = "0";
+			hourlyWage = "0";
+			hoursPerWeek = "0";
+			hoursPerYear = "0";
+			weeklyWage = "0";
+			yearlyWage = "0";
 		}
 
 		JLabel nameField = new JLabel("Employee Name:");
@@ -608,6 +625,7 @@ public class Record extends JFrame {
 					workLocation, Float.parseFloat(hourlyWage), Float.parseFloat(partDeductible),
 					Float.parseFloat(hoursPerWeek), Float.parseFloat(hoursPerYear), Integer.parseInt(workTerm)));
 		}
+		cancel();
 	}
 
 	public void cancel() {

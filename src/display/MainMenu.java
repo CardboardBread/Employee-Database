@@ -353,9 +353,6 @@ public class MainMenu extends JFrame {
 
 	public void populate(ArrayList<Employee> in) {
 		ArrayList<String> data = new ArrayList<String>();
-		if (in.isEmpty()) {
-			return;
-		}
 		for (Employee emp : in) {
 			data.add(emp.toString());
 		}
@@ -365,7 +362,7 @@ public class MainMenu extends JFrame {
 		while (data.size() > maxPageLength) {
 			data.remove(data.size() - 1);
 		}
-		employeeList.setListData((String[]) data.toArray());
+		employeeList.setListData(data.toArray(new String[data.size()]));
 	}
 
 	public JList<String> getEmployeeList() {

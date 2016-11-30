@@ -32,7 +32,7 @@ public class Database {
 	 * Clears the database by recycling its hashtable handler.
 	 */
 	public static void newDatabase() {
-		System.out.print("Creating a new Database.");
+		System.out.println("Creating a new Database.");
 		table = new OpenHashTable(databaseWidth);
 		workingFile = null;
 		menu.populate(table.toList());
