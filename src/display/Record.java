@@ -63,7 +63,7 @@ public class Record extends JFrame {
 	private JTextField partWeeklyWageField;
 	private JTextField partYearlyWageField;
 
-	private boolean employeeType;
+	private boolean employeeType = true;
 	private String firstName;
 	private String lastName;
 	private String ident;
@@ -118,6 +118,7 @@ public class Record extends JFrame {
 		if (subject != null) {
 			firstName = subject.getFirst();
 			lastName = subject.getLast();
+			ident = Integer.toString(subject.getNum());
 			sex = subject.getSex();
 			workLocation = subject.getWorkLoc();
 			if (subject.getClass() == database.FullTimeEmployee.class) {
@@ -176,7 +177,7 @@ public class Record extends JFrame {
 		contentPane.add(horizontalStrut, gbc_horizontalStrut);
 
 		identEntryField = new JTextField();
-		identEntryField.setText(Integer.toString(subject.getNum()));
+		identEntryField.setText(ident);
 		addChangeListener(identEntryField, e -> ident = identEntryField.getText());
 		GridBagConstraints gbc_identEntryField = new GridBagConstraints();
 		gbc_identEntryField.fill = GridBagConstraints.HORIZONTAL;

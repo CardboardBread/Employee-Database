@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import display.MainMenu;
+import display.Record;
 import display.Global;
 
 public class Database {
@@ -21,6 +22,7 @@ public class Database {
 			menu = new MainMenu("Database");
 			menu.setVisible(true);
 			newDatabase();
+			menu.populate(table.toList());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -30,8 +32,10 @@ public class Database {
 	 * Clears the database by recycling its hashtable handler.
 	 */
 	public static void newDatabase() {
+		System.out.print("Creating a new Database.");
 		table = new OpenHashTable(databaseWidth);
 		workingFile = null;
+		menu.populate(table.toList());
 	}
 
 	/**
@@ -94,6 +98,8 @@ public class Database {
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			menu.populate(table.toList());
 		}
 	}
 
@@ -120,6 +126,8 @@ public class Database {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			menu.populate(table.toList());
 		}
 	}
 
@@ -136,6 +144,7 @@ public class Database {
 		} else {
 			table.addEmployee(subject);
 		}
+		menu.populate(table.toList());
 	}
 
 	/**
@@ -148,6 +157,7 @@ public class Database {
 	 */
 	public static Employee deleteEmployee(int ident) {
 		Employee out = table.removeEmployee(ident);
+		menu.populate(table.toList());
 		return out;
 	}
 
@@ -163,7 +173,17 @@ public class Database {
 		Employee old = table.searchEmployee(subject.getNum());
 		table.removeEmployee(old.getNum());
 		table.addEmployee(subject);
+		menu.populate(table.toList());
 		return old;
+	}
+	
+	public static void newEmployee () {
+		try {
+			Record frame = new Record("New Employee...", null);
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

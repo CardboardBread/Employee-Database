@@ -15,18 +15,25 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 
+import database.Database;
 import database.Employee;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class MainMenu extends JFrame {
 
 	private static final long serialVersionUID = 1899909472206190456L;
+	private static final int maxPageLength = 18;
+
 	private JPanel contentPane;
 	private JTextField searchField;
 	private JList<String> employeeList;
+	private String selected;
 
 	/**
 	 * Launch the application.
@@ -101,17 +108,17 @@ public class MainMenu extends JFrame {
 		gbc_saveDatabaseButton.gridy = 1;
 		GlobalContainer.add(saveDatabaseButton, gbc_saveDatabaseButton);
 
-		JButton btnSaveAs = new JButton("Save As...");
-		btnSaveAs.addActionListener(new ActionListener() {
+		JButton saveAsButton = new JButton("Save As...");
+		saveAsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				database.Database.saveDatabaseAs();
 			}
 		});
-		GridBagConstraints gbc_btnSaveAs = new GridBagConstraints();
-		gbc_btnSaveAs.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSaveAs.gridx = 2;
-		gbc_btnSaveAs.gridy = 1;
-		GlobalContainer.add(btnSaveAs, gbc_btnSaveAs);
+		GridBagConstraints gbc_saveAsButton = new GridBagConstraints();
+		gbc_saveAsButton.insets = new Insets(0, 0, 0, 5);
+		gbc_saveAsButton.gridx = 2;
+		gbc_saveAsButton.gridy = 1;
+		GlobalContainer.add(saveAsButton, gbc_saveAsButton);
 
 		JButton loadDatabaseButton = new JButton("Load");
 		loadDatabaseButton.addActionListener(new ActionListener() {
@@ -158,6 +165,11 @@ public class MainMenu extends JFrame {
 		ActionContainer.add(employeeControlLabel, gbc_employeeControlLabel);
 
 		JButton addButton = new JButton("Add");
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				database.Database.newEmployee();
+			}
+		});
 		GridBagConstraints gbc_addButton = new GridBagConstraints();
 		gbc_addButton.insets = new Insets(0, 0, 0, 5);
 		gbc_addButton.fill = GridBagConstraints.BOTH;
@@ -166,6 +178,18 @@ public class MainMenu extends JFrame {
 		ActionContainer.add(addButton, gbc_addButton);
 
 		JButton deleteButton = new JButton("Delete");
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (selected != null) {
+					try {
+						int ident = Integer.parseInt(selected.split(" ")[0]);
+						Database.deleteEmployee(ident);
+					} catch (NumberFormatException nfe) {
+						nfe.printStackTrace();
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_deleteButton = new GridBagConstraints();
 		gbc_deleteButton.fill = GridBagConstraints.BOTH;
 		gbc_deleteButton.insets = new Insets(0, 3, 0, 5);
@@ -174,6 +198,10 @@ public class MainMenu extends JFrame {
 		ActionContainer.add(deleteButton, gbc_deleteButton);
 
 		JButton editButton = new JButton("Edit");
+		editButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_editButton = new GridBagConstraints();
 		gbc_editButton.fill = GridBagConstraints.BOTH;
 		gbc_editButton.insets = new Insets(0, 3, 0, 5);
@@ -182,6 +210,10 @@ public class MainMenu extends JFrame {
 		ActionContainer.add(editButton, gbc_editButton);
 
 		JButton replaceButton = new JButton("Replace");
+		replaceButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_replaceButton = new GridBagConstraints();
 		gbc_replaceButton.fill = GridBagConstraints.BOTH;
 		gbc_replaceButton.insets = new Insets(0, 3, 0, 5);
@@ -198,6 +230,11 @@ public class MainMenu extends JFrame {
 		ActionContainer.add(searchLabel, gbc_searchLabel);
 
 		searchField = new JTextField();
+		Record.addChangeListener(searchField, e -> {
+			if (isInt(searchField.getText())) {
+				search(Integer.parseInt(searchField.getText()));
+			}
+		});
 		GridBagConstraints gbc_searchField = new GridBagConstraints();
 		gbc_searchField.ipadx = 60;
 		gbc_searchField.insets = new Insets(0, 3, 0, 0);
@@ -232,6 +269,10 @@ public class MainMenu extends JFrame {
 		ListContainer.setLayout(gbl_ListContainer);
 
 		JButton previousPageButton = new JButton("Previous");
+		previousPageButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_previousPageButton = new GridBagConstraints();
 		gbc_previousPageButton.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_previousPageButton.gridx = 0;
@@ -239,6 +280,10 @@ public class MainMenu extends JFrame {
 		ListContainer.add(previousPageButton, gbc_previousPageButton);
 
 		JButton nextPageButton = new JButton("Next");
+		nextPageButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_nextPageButton = new GridBagConstraints();
 		gbc_nextPageButton.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_nextPageButton.gridx = 1;
@@ -248,21 +293,77 @@ public class MainMenu extends JFrame {
 		JPanel ListHolder = new JPanel();
 		GridBagConstraints gbc_ListHolder = new GridBagConstraints();
 		gbc_ListHolder.gridwidth = 2;
-		gbc_ListHolder.insets = new Insets(0, 0, 0, 5);
+		gbc_ListHolder.insets = new Insets(5, 5, 5, 5);
 		gbc_ListHolder.fill = GridBagConstraints.BOTH;
 		gbc_ListHolder.gridx = 0;
 		gbc_ListHolder.gridy = 0;
 		ListContainer.add(ListHolder, gbc_ListHolder);
 
 		employeeList = new JList<String>();
+		employeeList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				selected = employeeList.getSelectedValue();
+			}
+		});
+		employeeList.setVisibleRowCount(21);
+		employeeList.setModel(new AbstractListModel<String>() {
+			private static final long serialVersionUID = -7298468375848165951L;
+			String[] values = new String[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+					"nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
+					"eighteen", "nineteen", "twenty", "twenty one" };
+
+			public int getSize() {
+				return values.length;
+			}
+
+			public String getElementAt(int index) {
+				return values[index];
+			}
+		});
 		ListHolder.add(employeeList);
 
 	}
 
+	public boolean isInt(String str) {
+		try {
+			Integer.parseInt(str);
+		} catch (NumberFormatException nfe) {
+			nfe.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public void search(int search) {
+		ArrayList<Employee> formatted = new ArrayList<Employee>();
+		formatted.add(database.Database.table.searchEmployee(search));
+		int distance = 1;
+		while (formatted.size() < maxPageLength) {
+			Employee above = database.Database.table.searchEmployee(search + distance);
+			Employee below = database.Database.table.searchEmployee(search - distance);
+			if (above != null) {
+				formatted.add(above);
+			}
+			if (below != null) {
+				formatted.add(below);
+			}
+			distance++;
+		}
+	}
+
 	public void populate(ArrayList<Employee> in) {
 		ArrayList<String> data = new ArrayList<String>();
+		if (in.isEmpty()) {
+			return;
+		}
 		for (Employee emp : in) {
 			data.add(emp.toString());
+		}
+		while (data.size() < maxPageLength) {
+			data.add("");
+		}
+		while (data.size() > maxPageLength) {
+			data.remove(data.size() - 1);
 		}
 		employeeList.setListData((String[]) data.toArray());
 	}

@@ -6,10 +6,10 @@ public class OpenHashTable {
 	public ArrayList<Employee>[] buckets;
 
 	/**
-	 * Public constructor for initializing the array of buckets and the contents
-	 * of each bucket.
+	 * Initializes the hashtable and all its buckets.
 	 * 
 	 * @param bucketCount
+	 *            an integer defining the number of buckets in the hashtable.
 	 */
 	public OpenHashTable(int bucketCount) {
 		buckets = new ArrayList[bucketCount];
@@ -24,8 +24,9 @@ public class OpenHashTable {
 	 * location.
 	 * 
 	 * @param keyValue
-	 *            The employee's number.
-	 * @return
+	 *            an integer corresponding to an employee's identification
+	 *            number.
+	 * @return The employee's destination bucket.
 	 */
 	public int calcBucket(int keyValue) {
 		return (keyValue % buckets.length);
@@ -48,7 +49,8 @@ public class OpenHashTable {
 	 * Searches through all buckets to find the provided employee number.
 	 * 
 	 * @param employeeNum
-	 *            The target the function searches for.
+	 *            an integer equivalent to the identification number of the
+	 *            desired employee.
 	 * @return The employee that the search finds.
 	 */
 	public Employee searchEmployee(int employeeNum) {
@@ -73,8 +75,9 @@ public class OpenHashTable {
 	 * employee's number.
 	 * 
 	 * @param target
-	 *            The ID of the employee that is to be removed.
-	 * @return
+	 *            an integer equivalent to the identification number of the
+	 *            desired employee.
+	 * @return The employee that was removed.
 	 */
 	public Employee removeEmployee(int target) {
 		for (ArrayList<Employee> bucket : buckets) {
@@ -90,7 +93,7 @@ public class OpenHashTable {
 	}
 
 	/**
-	 * Prints out all contents of the hash table, in numerical order.
+	 * Prints out all contents of the hashtable, in numerical order.
 	 */
 	public void displayContents() {
 		int index = -1;
@@ -106,9 +109,9 @@ public class OpenHashTable {
 	}
 
 	/**
-	 * Translates the hash table into a single dimension ArrayList. Even though
-	 * the structure of the hash table is not preserved, a reconstruction will
-	 * be effortless to create.
+	 * Translates the hash table into a single dimension ArrayList. The
+	 * structure of the hashtable will not be preserved, but no employee data
+	 * will be changed, allowing effortless reconstruction.
 	 * 
 	 * @return The hash table in ArrayList form.
 	 */
