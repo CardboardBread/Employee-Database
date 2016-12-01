@@ -16,6 +16,8 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Global extends JFrame {
 
@@ -50,8 +52,14 @@ public class Global extends JFrame {
 	 * Create the frame.
 	 */
 	public Global(String title, boolean type, String preText) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cancel();
+			}
+		});
 		setTitle(title);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 232, 150);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

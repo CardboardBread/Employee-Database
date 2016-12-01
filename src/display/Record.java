@@ -35,6 +35,8 @@ import java.awt.event.ItemEvent;
 import javax.swing.border.BevelBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Record extends JFrame {
 
@@ -102,8 +104,14 @@ public class Record extends JFrame {
 	 * Create the frame.
 	 */
 	public Record(String title, Employee subject) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				cancel();
+			}
+		});
 		setTitle(title);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, xLength, yLength);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
