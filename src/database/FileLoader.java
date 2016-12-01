@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class FileLoader {
+	
+	public static final String extension = ".txt";
 
 	/**
 	 * 
@@ -19,7 +21,7 @@ public class FileLoader {
 	public static ArrayList<String> readFile(String fileName) throws IOException, FileNotFoundException {
 		ArrayList<String> fileLoad = new ArrayList<String>();
 		String line;
-		FileReader fileReader = new FileReader(fileName);
+		FileReader fileReader = new FileReader(fileName + extension);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		while ((line = bufferedReader.readLine()) != null) {
 			fileLoad.add(line);
@@ -35,7 +37,7 @@ public class FileLoader {
 	 * @throws FileNotFoundException
 	 */
 	public static void writeFile(ArrayList<String> load, String fileName) throws FileNotFoundException {
-		PrintWriter writer = new PrintWriter(fileName);
+		PrintWriter writer = new PrintWriter(fileName + extension);
 		for (int i = 0; i < load.size(); i++) {
 			writer.println(load.get(i));
 		}

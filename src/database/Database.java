@@ -83,8 +83,9 @@ public class Database {
 		}
 		try {
 			FileLoader.writeFile(strOut, fileName);
+			System.out.println("Saving database to \"" + fileName + "\"");
 		} catch (FileNotFoundException e) {
-			System.out.println("Failed to save file to " + fileName);
+			System.out.println("Failed saving database to \"" + fileName + "\"");
 			e.printStackTrace();
 		}
 	}
@@ -118,12 +119,14 @@ public class Database {
 				table.addEmployee(storageToEmployee(str));
 			}
 			workingFile = fileName;
+			System.out.println("Loading database from \"" + fileName + "\"");
 			return true;
 		} catch (FileNotFoundException e) {
-			System.out.println("File " + fileName + " not found.");
+			System.out.println("Failed to load from \"" + fileName + "\", file not found.");
 			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
+			System.out.println("Failed to load.");
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -180,6 +183,15 @@ public class Database {
 	public static void newEmployee () {
 		try {
 			Record frame = new Record("New Employee...", null);
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void editEmployee (int target) {
+		try {
+			Record frame = new Record("Edit Employee...", table.searchEmployee(target));
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();

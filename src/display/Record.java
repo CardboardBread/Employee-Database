@@ -218,6 +218,7 @@ public class Record extends JFrame {
 				new String[] { "Brampton", "Burlington", "Etobicoke", "Markham", "Milton", "Mississauga", "North York",
 						"Oakville", "Richmond Hill", "Scarborough", "Toronto", "Vaughan" }));
 		workEntryField.setEditable(true);
+		workEntryField.setSelectedItem(workLocation);
 		workEntryField.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				workLocation = (String) workEntryField.getSelectedItem();
@@ -242,6 +243,7 @@ public class Record extends JFrame {
 		sexEntryField = new JComboBox<String>();
 		sexEntryField.setModel(new DefaultComboBoxModel<String>(new String[] { "Male", "Female", "Other" }));
 		sexEntryField.setEditable(true);
+		sexEntryField.setSelectedItem(sex);
 		sexEntryField.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				sex = (String) sexEntryField.getSelectedItem();

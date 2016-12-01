@@ -28,6 +28,7 @@ public class Global extends JFrame {
 
 	private String name;
 	private boolean function;
+	private JLabel lbltxt;
 
 	/**
 	 * Launch the application.
@@ -87,7 +88,7 @@ public class Global extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_nameField = new GridBagConstraints();
-		gbc_nameField.insets = new Insets(0, 0, 5, 0);
+		gbc_nameField.insets = new Insets(0, 0, 5, 1);
 		gbc_nameField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nameField.gridx = 1;
 		gbc_nameField.gridy = 0;
@@ -100,8 +101,15 @@ public class Global extends JFrame {
 				submit();
 			}
 		});
+		
+		lbltxt = new JLabel(".txt");
+		GridBagConstraints gbc_lbltxt = new GridBagConstraints();
+		gbc_lbltxt.insets = new Insets(0, 0, 5, 0);
+		gbc_lbltxt.gridx = 2;
+		gbc_lbltxt.gridy = 0;
+		contentPane.add(lbltxt, gbc_lbltxt);
 		GridBagConstraints gbc_okButton = new GridBagConstraints();
-		gbc_okButton.insets = new Insets(0, 0, 5, 5);
+		gbc_okButton.insets = new Insets(0, 0, 0, 5);
 		gbc_okButton.gridx = 0;
 		gbc_okButton.gridy = 1;
 		contentPane.add(okButton, gbc_okButton);
@@ -113,7 +121,7 @@ public class Global extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
-		gbc_cancelButton.insets = new Insets(0, 0, 5, 0);
+		gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
 		gbc_cancelButton.gridx = 1;
 		gbc_cancelButton.gridy = 1;
 		contentPane.add(cancelButton, gbc_cancelButton);
@@ -121,7 +129,6 @@ public class Global extends JFrame {
 
 	public void submit() {
 		if (!name.isEmpty()) {
-			System.out.println(name);
 			if (function) {
 				database.Database.finishSaveAs(name);
 			} else {

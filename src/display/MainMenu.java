@@ -200,6 +200,7 @@ public class MainMenu extends JFrame {
 		JButton editButton = new JButton("Edit");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Database.editEmployee(listToNum(selected));
 			}
 		});
 		GridBagConstraints gbc_editButton = new GridBagConstraints();
@@ -212,6 +213,7 @@ public class MainMenu extends JFrame {
 		JButton replaceButton = new JButton("Replace");
 		replaceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Database.editEmployee(listToNum(selected));
 			}
 		});
 		GridBagConstraints gbc_replaceButton = new GridBagConstraints();
@@ -253,26 +255,26 @@ public class MainMenu extends JFrame {
 		gbc_ViewContainer.gridy = 1;
 		contentPane.add(ViewContainer, gbc_ViewContainer);
 		GridBagLayout gbl_ViewContainer = new GridBagLayout();
-		gbl_ViewContainer.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_ViewContainer.rowHeights = new int[]{0, 0};
-		gbl_ViewContainer.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_ViewContainer.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_ViewContainer.columnWidths = new int[] { 0, 0, 0, 0 };
+		gbl_ViewContainer.rowHeights = new int[] { 0, 0 };
+		gbl_ViewContainer.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_ViewContainer.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		ViewContainer.setLayout(gbl_ViewContainer);
-		
+
 		JLabel lblEmployeeId = new JLabel("Employee ID");
 		GridBagConstraints gbc_lblEmployeeId = new GridBagConstraints();
 		gbc_lblEmployeeId.insets = new Insets(0, 0, 0, 5);
 		gbc_lblEmployeeId.gridx = 0;
 		gbc_lblEmployeeId.gridy = 0;
 		ViewContainer.add(lblEmployeeId, gbc_lblEmployeeId);
-		
+
 		JLabel lblName = new JLabel("First Name");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.insets = new Insets(0, 0, 0, 5);
 		gbc_lblName.gridx = 1;
 		gbc_lblName.gridy = 0;
 		ViewContainer.add(lblName, gbc_lblName);
-		
+
 		JLabel lblLastName = new JLabel("Last Name");
 		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
 		gbc_lblLastName.gridx = 2;
@@ -393,5 +395,15 @@ public class MainMenu extends JFrame {
 
 	public JList<String> getEmployeeList() {
 		return employeeList;
+	}
+
+	public int listToNum(String listItem) {
+		String[] split = listItem.split(" ");
+		try {
+			return Integer.parseInt(split[0]);
+		} catch (NumberFormatException e) {
+			System.out.println("Failed to parse " + split[0] + " as an employee number.");
+			return -1;
+		}
 	}
 }
