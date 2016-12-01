@@ -163,7 +163,12 @@ public class Record extends JFrame {
 		contentPane.add(nameField, gbc_nameField);
 
 		nameEntryField = new JTextField();
-		nameEntryField.setText(firstName + " " + lastName);
+		if (!firstName.isEmpty()) {
+			nameEntryField.setText(firstName);
+		}
+		if (!lastName.isEmpty()) {
+			nameEntryField.setText(nameEntryField.getText() + " " + lastName);
+		}
 		addChangeListener(nameEntryField, e -> {
 			String[] split = nameEntryField.getText().split(" ");
 			firstName = split[0];
