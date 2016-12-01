@@ -24,6 +24,9 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.FlowLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
 
 public class MainMenu extends JFrame {
 
@@ -34,6 +37,10 @@ public class MainMenu extends JFrame {
 	private JTextField searchField;
 	private JList<String> employeeList;
 	private String selected;
+	private JTextField textEmployeeID;
+	private JTextField textName;
+	private JTextField textLocation;
+	private JTextField textGender;
 
 	/**
 	 * Launch the application.
@@ -59,6 +66,7 @@ public class MainMenu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 0, 0 };
@@ -68,6 +76,7 @@ public class MainMenu extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 
 		JPanel GlobalContainer = new JPanel();
+		GlobalContainer.setBackground(Color.WHITE);
 		GlobalContainer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_GlobalContainer = new GridBagConstraints();
 		gbc_GlobalContainer.insets = new Insets(5, 5, 5, 5);
@@ -142,6 +151,7 @@ public class MainMenu extends JFrame {
 		GlobalContainer.add(globalControlLabel, gbc_globalControlLabel);
 
 		JPanel ActionContainer = new JPanel();
+		ActionContainer.setBackground(Color.WHITE);
 		ActionContainer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_ActionContainer = new GridBagConstraints();
 		gbc_ActionContainer.insets = new Insets(5, 0, 5, 5);
@@ -247,6 +257,7 @@ public class MainMenu extends JFrame {
 		searchField.setColumns(10);
 
 		JPanel ViewContainer = new JPanel();
+		ViewContainer.setBackground(Color.WHITE);
 		ViewContainer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_ViewContainer = new GridBagConstraints();
 		gbc_ViewContainer.insets = new Insets(0, 5, 5, 5);
@@ -255,33 +266,106 @@ public class MainMenu extends JFrame {
 		gbc_ViewContainer.gridy = 1;
 		contentPane.add(ViewContainer, gbc_ViewContainer);
 		GridBagLayout gbl_ViewContainer = new GridBagLayout();
-		gbl_ViewContainer.columnWidths = new int[] { 0, 0, 0, 0 };
-		gbl_ViewContainer.rowHeights = new int[] { 0, 0 };
-		gbl_ViewContainer.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
-		gbl_ViewContainer.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		gbl_ViewContainer.columnWidths = new int[] {0, 0, 0};
+		gbl_ViewContainer.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_ViewContainer.columnWeights = new double[] { 1.0, 1.0, 1.0 };
+		gbl_ViewContainer.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		ViewContainer.setLayout(gbl_ViewContainer);
-
-		JLabel lblEmployeeId = new JLabel("Employee ID");
-		GridBagConstraints gbc_lblEmployeeId = new GridBagConstraints();
-		gbc_lblEmployeeId.insets = new Insets(0, 0, 0, 5);
-		gbc_lblEmployeeId.gridx = 0;
-		gbc_lblEmployeeId.gridy = 0;
-		ViewContainer.add(lblEmployeeId, gbc_lblEmployeeId);
-
-		JLabel lblName = new JLabel("First Name");
-		GridBagConstraints gbc_lblName = new GridBagConstraints();
-		gbc_lblName.insets = new Insets(0, 0, 0, 5);
-		gbc_lblName.gridx = 1;
-		gbc_lblName.gridy = 0;
-		ViewContainer.add(lblName, gbc_lblName);
-
-		JLabel lblLastName = new JLabel("Last Name");
-		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
-		gbc_lblLastName.gridx = 2;
-		gbc_lblLastName.gridy = 0;
-		ViewContainer.add(lblLastName, gbc_lblLastName);
+		
+				JLabel lblEmployeeId = new JLabel("Employee ID");
+				GridBagConstraints gbc_lblEmployeeId = new GridBagConstraints();
+				gbc_lblEmployeeId.anchor = GridBagConstraints.WEST;
+				gbc_lblEmployeeId.insets = new Insets(0, 0, 5, 5);
+				gbc_lblEmployeeId.gridx = 0;
+				gbc_lblEmployeeId.gridy = 0;
+				ViewContainer.add(lblEmployeeId, gbc_lblEmployeeId);
+		
+				JLabel lblName = new JLabel("Name");
+				GridBagConstraints gbc_lblName = new GridBagConstraints();
+				gbc_lblName.anchor = GridBagConstraints.WEST;
+				gbc_lblName.insets = new Insets(0, 0, 5, 5);
+				gbc_lblName.gridx = 1;
+				gbc_lblName.gridy = 0;
+				ViewContainer.add(lblName, gbc_lblName);
+		
+		textEmployeeID = new JTextField();
+		textEmployeeID.setEditable(false);
+		GridBagConstraints gbc_textEmployeeID = new GridBagConstraints();
+		gbc_textEmployeeID.insets = new Insets(0, 0, 5, 5);
+		gbc_textEmployeeID.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textEmployeeID.gridx = 0;
+		gbc_textEmployeeID.gridy = 1;
+		ViewContainer.add(textEmployeeID, gbc_textEmployeeID);
+		textEmployeeID.setColumns(10);
+		
+		textName = new JTextField();
+		textName.setEditable(false);
+		GridBagConstraints gbc_textName = new GridBagConstraints();
+		gbc_textName.insets = new Insets(0, 0, 5, 0);
+		gbc_textName.gridwidth = 2;
+		gbc_textName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textName.gridx = 1;
+		gbc_textName.gridy = 1;
+		ViewContainer.add(textName, gbc_textName);
+		textName.setColumns(10);
+		
+		JLabel LabelLocation = new JLabel("Location");
+		GridBagConstraints gbc_LabelLocation = new GridBagConstraints();
+		gbc_LabelLocation.anchor = GridBagConstraints.WEST;
+		gbc_LabelLocation.insets = new Insets(0, 0, 5, 5);
+		gbc_LabelLocation.gridx = 0;
+		gbc_LabelLocation.gridy = 2;
+		ViewContainer.add(LabelLocation, gbc_LabelLocation);
+		
+		JLabel LabelGender = new JLabel("Sex");
+		GridBagConstraints gbc_LabelGender = new GridBagConstraints();
+		gbc_LabelGender.insets = new Insets(0, 0, 5, 5);
+		gbc_LabelGender.anchor = GridBagConstraints.WEST;
+		gbc_LabelGender.gridx = 2;
+		gbc_LabelGender.gridy = 2;
+		ViewContainer.add(LabelGender, gbc_LabelGender);
+		
+		textLocation = new JTextField();
+		textLocation.setEditable(false);
+		GridBagConstraints gbc_textLocation = new GridBagConstraints();
+		gbc_textLocation.gridwidth = 2;
+		gbc_textLocation.insets = new Insets(0, 0, 5, 5);
+		gbc_textLocation.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textLocation.gridx = 0;
+		gbc_textLocation.gridy = 3;
+		ViewContainer.add(textLocation, gbc_textLocation);
+		textLocation.setColumns(10);
+		
+		textGender = new JTextField();
+		textGender.setEditable(false);
+		GridBagConstraints gbc_textGender = new GridBagConstraints();
+		gbc_textGender.insets = new Insets(0, 0, 5, 0);
+		gbc_textGender.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textGender.gridx = 2;
+		gbc_textGender.gridy = 3;
+		ViewContainer.add(textGender, gbc_textGender);
+		textGender.setColumns(10);
+		
+		JPanel panelExtendedEmployeeInfo = new JPanel();
+		panelExtendedEmployeeInfo.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		GridBagConstraints gbc_panelExtendedEmployeeInfo = new GridBagConstraints();
+		gbc_panelExtendedEmployeeInfo.gridheight = 3;
+		gbc_panelExtendedEmployeeInfo.gridwidth = 3;
+		gbc_panelExtendedEmployeeInfo.fill = GridBagConstraints.BOTH;
+		gbc_panelExtendedEmployeeInfo.gridx = 0;
+		gbc_panelExtendedEmployeeInfo.gridy = 4;
+		ViewContainer.add(panelExtendedEmployeeInfo, gbc_panelExtendedEmployeeInfo);
+		panelExtendedEmployeeInfo.setLayout(new CardLayout(0, 0));
+		
+		JPanel panelFullTimeInfo = new JPanel();
+		panelExtendedEmployeeInfo.add(panelFullTimeInfo, "name_3892476439700159");
+		panelFullTimeInfo.setLayout(null);
+		
+		JPanel panelPartTimeInfo = new JPanel();
+		panelExtendedEmployeeInfo.add(panelPartTimeInfo, "name_3892498524926794");
 
 		JPanel ListContainer = new JPanel();
+		ListContainer.setBackground(Color.WHITE);
 		ListContainer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_ListContainer = new GridBagConstraints();
 		gbc_ListContainer.insets = new Insets(0, 0, 5, 5);
@@ -291,9 +375,9 @@ public class MainMenu extends JFrame {
 		contentPane.add(ListContainer, gbc_ListContainer);
 		GridBagLayout gbl_ListContainer = new GridBagLayout();
 		gbl_ListContainer.columnWidths = new int[] { 0 };
-		gbl_ListContainer.rowHeights = new int[] { 0 };
+		gbl_ListContainer.rowHeights = new int[] { 0, 0, 0 };
 		gbl_ListContainer.columnWeights = new double[] { 1.0, 0.0 };
-		gbl_ListContainer.rowWeights = new double[] { 1.0, 0.0 };
+		gbl_ListContainer.rowWeights = new double[] { 1.0, 0.0, 1.0 };
 		ListContainer.setLayout(gbl_ListContainer);
 
 		JButton previousPageButton = new JButton("Previous");
@@ -302,6 +386,7 @@ public class MainMenu extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_previousPageButton = new GridBagConstraints();
+		gbc_previousPageButton.insets = new Insets(0, 0, 5, 5);
 		gbc_previousPageButton.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_previousPageButton.gridx = 0;
 		gbc_previousPageButton.gridy = 1;
@@ -313,6 +398,7 @@ public class MainMenu extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_nextPageButton = new GridBagConstraints();
+		gbc_nextPageButton.insets = new Insets(0, 0, 5, 0);
 		gbc_nextPageButton.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_nextPageButton.gridx = 1;
 		gbc_nextPageButton.gridy = 1;
@@ -321,7 +407,7 @@ public class MainMenu extends JFrame {
 		JPanel ListHolder = new JPanel();
 		GridBagConstraints gbc_ListHolder = new GridBagConstraints();
 		gbc_ListHolder.gridwidth = 2;
-		gbc_ListHolder.insets = new Insets(5, 5, 5, 5);
+		gbc_ListHolder.insets = new Insets(5, 5, 5, 0);
 		gbc_ListHolder.fill = GridBagConstraints.BOTH;
 		gbc_ListHolder.gridx = 0;
 		gbc_ListHolder.gridy = 0;
