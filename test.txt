@@ -7,9 +7,12 @@
 0,,14124,Other,N/A,0.0,0.0,0
 478,name,space,walrus,yes,0.0,0.0,0
 2324,aeb,hruvl,yes,N/A,0.0,0.0,0
-145,,esb,Other,N/A,0.0,0.0,0
+40,default,nameQ,Other,Vaughan,0.0,0.0,0
 21345,,wGvsweMZZ,Other,Brampton454,0.0,0.0,0
 1874965,,aieurygl,Other,N/A,0.0,0.0,0
-777,,superload,Other,Milton,111.0,111.0,1111
-9999,,1,Thing,The place,295222.0,1.0,1490715
 111,,12414142,Other,N/A,0.0,0.0,0
+1800267,moldy,man,force,alarm,34000.0,0.12,12
+777,ear,day,ogre,shrek's swamp,0.0,0.0,0
+9919,HILLOCK,HILLOCK,Other,thanks for dealing with hillock,0.0,0.0,0
+33,goon,goon,Other,N/A,0.0,0.0,0
+779,man,man,Other,N/A,0.0,0.0,0

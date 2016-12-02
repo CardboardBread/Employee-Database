@@ -180,7 +180,9 @@ public class Record extends JFrame {
 		addChangeListener(nameEntryField, e -> {
 			String[] split = nameEntryField.getText().split(" ");
 			firstName = split[0];
-			lastName = split[split.length - 1];
+			if (split.length > 1) {
+				lastName = split[split.length - 1];
+			}
 		});
 		GridBagConstraints gbc_nameEntryField = new GridBagConstraints();
 		gbc_nameEntryField.fill = GridBagConstraints.HORIZONTAL;
