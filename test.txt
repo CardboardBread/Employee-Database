@@ -1,4 +1,3 @@
-34,,asfv,Other,N/A,0.0,0.0,0
 341960,,AWLURHYBVBH,Other,N/A,0.0,0.0,0
 3475586,,EARVVILUYBq,Other,N/A,0.0,0.0,0
 3258796,,aerrliyub,Other,N/A,0.0,0.0,0
@@ -12,7 +11,8 @@
 1874965,,aieurygl,Other,N/A,0.0,0.0,0
 111,,12414142,Other,N/A,0.0,0.0,0
 1800267,moldy,man,force,alarm,34000.0,0.12,12
-777,ear,day,ogre,shrek's swamp,0.0,0.0,0
 9919,HILLOCK,HILLOCK,Other,thanks for dealing with hillock,0.0,0.0,0
 33,goon,goon,Other,N/A,0.0,0.0,0
 779,man,man,Other,N/A,0.0,0.0,0
+23,Rylan,Crooks,Male,Burlington,24444.0,3.0,3
+777,ear,man,ogre,shrek's swamp,0.0,23.0,0

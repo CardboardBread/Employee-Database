@@ -16,6 +16,7 @@ import javax.swing.border.EtchedBorder;
 
 import database.Database;
 import database.Employee;
+import database.FullTimeEmployee;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -52,7 +53,7 @@ public class MainMenu extends JFrame {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -276,30 +277,30 @@ public class MainMenu extends JFrame {
 		gbc_ViewContainer.gridy = 1;
 		contentPane.add(ViewContainer, gbc_ViewContainer);
 		GridBagLayout gbl_ViewContainer = new GridBagLayout();
-		gbl_ViewContainer.columnWidths = new int[] {0, 0, 0};
+		gbl_ViewContainer.columnWidths = new int[] { 0, 0, 0 };
 		gbl_ViewContainer.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_ViewContainer.columnWeights = new double[] { 1.0, 1.0, 1.0 };
 		gbl_ViewContainer.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		ViewContainer.setLayout(gbl_ViewContainer);
-		
-				JLabel lblEmployeeId = new JLabel("Employee ID");
-				lblEmployeeId.setFont(new Font("Tahoma", Font.BOLD, 11));
-				GridBagConstraints gbc_lblEmployeeId = new GridBagConstraints();
-				gbc_lblEmployeeId.anchor = GridBagConstraints.WEST;
-				gbc_lblEmployeeId.insets = new Insets(0, 0, 5, 5);
-				gbc_lblEmployeeId.gridx = 0;
-				gbc_lblEmployeeId.gridy = 0;
-				ViewContainer.add(lblEmployeeId, gbc_lblEmployeeId);
-		
-				JLabel lblName = new JLabel("Name");
-				lblName.setFont(new Font("Tahoma", Font.BOLD, 11));
-				GridBagConstraints gbc_lblName = new GridBagConstraints();
-				gbc_lblName.anchor = GridBagConstraints.WEST;
-				gbc_lblName.insets = new Insets(0, 0, 5, 5);
-				gbc_lblName.gridx = 1;
-				gbc_lblName.gridy = 0;
-				ViewContainer.add(lblName, gbc_lblName);
-		
+
+		JLabel lblEmployeeId = new JLabel("Employee ID:");
+		lblEmployeeId.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblEmployeeId = new GridBagConstraints();
+		gbc_lblEmployeeId.anchor = GridBagConstraints.WEST;
+		gbc_lblEmployeeId.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEmployeeId.gridx = 0;
+		gbc_lblEmployeeId.gridy = 0;
+		ViewContainer.add(lblEmployeeId, gbc_lblEmployeeId);
+
+		JLabel lblName = new JLabel("Name:");
+		lblName.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblName = new GridBagConstraints();
+		gbc_lblName.anchor = GridBagConstraints.WEST;
+		gbc_lblName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblName.gridx = 1;
+		gbc_lblName.gridy = 0;
+		ViewContainer.add(lblName, gbc_lblName);
+
 		textEmployeeID = new JTextField();
 		textEmployeeID.setEditable(false);
 		GridBagConstraints gbc_textEmployeeID = new GridBagConstraints();
@@ -309,7 +310,7 @@ public class MainMenu extends JFrame {
 		gbc_textEmployeeID.gridy = 1;
 		ViewContainer.add(textEmployeeID, gbc_textEmployeeID);
 		textEmployeeID.setColumns(10);
-		
+
 		textName = new JTextField();
 		textName.setEditable(false);
 		GridBagConstraints gbc_textName = new GridBagConstraints();
@@ -320,8 +321,8 @@ public class MainMenu extends JFrame {
 		gbc_textName.gridy = 1;
 		ViewContainer.add(textName, gbc_textName);
 		textName.setColumns(10);
-		
-		JLabel LabelLocation = new JLabel("Location");
+
+		JLabel LabelLocation = new JLabel("Location:");
 		LabelLocation.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_LabelLocation = new GridBagConstraints();
 		gbc_LabelLocation.anchor = GridBagConstraints.WEST;
@@ -329,8 +330,8 @@ public class MainMenu extends JFrame {
 		gbc_LabelLocation.gridx = 0;
 		gbc_LabelLocation.gridy = 2;
 		ViewContainer.add(LabelLocation, gbc_LabelLocation);
-		
-		JLabel LabelGender = new JLabel("Sex");
+
+		JLabel LabelGender = new JLabel("Sex:");
 		LabelGender.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_LabelGender = new GridBagConstraints();
 		gbc_LabelGender.insets = new Insets(0, 0, 5, 5);
@@ -338,7 +339,7 @@ public class MainMenu extends JFrame {
 		gbc_LabelGender.gridx = 2;
 		gbc_LabelGender.gridy = 2;
 		ViewContainer.add(LabelGender, gbc_LabelGender);
-		
+
 		textLocation = new JTextField();
 		textLocation.setEditable(false);
 		GridBagConstraints gbc_textLocation = new GridBagConstraints();
@@ -349,7 +350,7 @@ public class MainMenu extends JFrame {
 		gbc_textLocation.gridy = 3;
 		ViewContainer.add(textLocation, gbc_textLocation);
 		textLocation.setColumns(10);
-		
+
 		textGender = new JTextField();
 		textGender.setEditable(false);
 		GridBagConstraints gbc_textGender = new GridBagConstraints();
@@ -359,7 +360,7 @@ public class MainMenu extends JFrame {
 		gbc_textGender.gridy = 3;
 		ViewContainer.add(textGender, gbc_textGender);
 		textGender.setColumns(10);
-		
+
 		JPanel panelExtendedEmployeeInfo = new JPanel();
 		panelExtendedEmployeeInfo.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_panelExtendedEmployeeInfo = new GridBagConstraints();
@@ -370,16 +371,17 @@ public class MainMenu extends JFrame {
 		gbc_panelExtendedEmployeeInfo.gridy = 4;
 		ViewContainer.add(panelExtendedEmployeeInfo, gbc_panelExtendedEmployeeInfo);
 		panelExtendedEmployeeInfo.setLayout(new CardLayout(0, 0));
-		
+
 		JPanel panelFullTimeInfo = new JPanel();
 		panelExtendedEmployeeInfo.add(panelFullTimeInfo, "name_3892476439700159");
 		GridBagLayout gbl_panelFullTimeInfo = new GridBagLayout();
-		gbl_panelFullTimeInfo.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panelFullTimeInfo.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panelFullTimeInfo.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelFullTimeInfo.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelFullTimeInfo.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panelFullTimeInfo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panelFullTimeInfo.columnWeights = new double[] { 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_panelFullTimeInfo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelFullTimeInfo.setLayout(gbl_panelFullTimeInfo);
-		
+
 		JLabel lblFullTimeEmployee = new JLabel("Full Time Employee");
 		lblFullTimeEmployee.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblFullTimeEmployee = new GridBagConstraints();
@@ -388,8 +390,8 @@ public class MainMenu extends JFrame {
 		gbc_lblFullTimeEmployee.gridx = 0;
 		gbc_lblFullTimeEmployee.gridy = 0;
 		panelFullTimeInfo.add(lblFullTimeEmployee, gbc_lblFullTimeEmployee);
-		
-		JLabel lblSalary = new JLabel("Salary");
+
+		JLabel lblSalary = new JLabel("Salary:");
 		lblSalary.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblSalary = new GridBagConstraints();
 		gbc_lblSalary.anchor = GridBagConstraints.WEST;
@@ -397,7 +399,7 @@ public class MainMenu extends JFrame {
 		gbc_lblSalary.gridx = 0;
 		gbc_lblSalary.gridy = 1;
 		panelFullTimeInfo.add(lblSalary, gbc_lblSalary);
-		
+
 		textField = new JTextField();
 		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -408,8 +410,8 @@ public class MainMenu extends JFrame {
 		gbc_textField.gridy = 2;
 		panelFullTimeInfo.add(textField, gbc_textField);
 		textField.setColumns(10);
-		
-		JLabel lblDeductable = new JLabel("Deductable");
+
+		JLabel lblDeductable = new JLabel("Deductable:");
 		lblDeductable.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblDeductable = new GridBagConstraints();
 		gbc_lblDeductable.anchor = GridBagConstraints.WEST;
@@ -417,7 +419,7 @@ public class MainMenu extends JFrame {
 		gbc_lblDeductable.gridx = 0;
 		gbc_lblDeductable.gridy = 3;
 		panelFullTimeInfo.add(lblDeductable, gbc_lblDeductable);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -428,8 +430,8 @@ public class MainMenu extends JFrame {
 		gbc_textField_1.gridy = 4;
 		panelFullTimeInfo.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
-		
-		JLabel lblSeniority = new JLabel("Seniority");
+
+		JLabel lblSeniority = new JLabel("Seniority:");
 		lblSeniority.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblSeniority = new GridBagConstraints();
 		gbc_lblSeniority.anchor = GridBagConstraints.WEST;
@@ -437,7 +439,7 @@ public class MainMenu extends JFrame {
 		gbc_lblSeniority.gridx = 0;
 		gbc_lblSeniority.gridy = 5;
 		panelFullTimeInfo.add(lblSeniority, gbc_lblSeniority);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -448,19 +450,19 @@ public class MainMenu extends JFrame {
 		gbc_textField_2.gridy = 6;
 		panelFullTimeInfo.add(textField_2, gbc_textField_2);
 		textField_2.setColumns(10);
-		
+
 		JPanel panelPartTimeInfo = new JPanel();
 		panelExtendedEmployeeInfo.add(panelPartTimeInfo, "name_3892498524926794");
-		
+
 		JPanel panel = new JPanel();
 		panelPartTimeInfo.add(panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-		
+
 		JLabel lblPartTimeEmployee = new JLabel("Part Time Employee");
 		lblPartTimeEmployee.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblPartTimeEmployee = new GridBagConstraints();
@@ -469,7 +471,7 @@ public class MainMenu extends JFrame {
 		gbc_lblPartTimeEmployee.gridx = 0;
 		gbc_lblPartTimeEmployee.gridy = 0;
 		panel.add(lblPartTimeEmployee, gbc_lblPartTimeEmployee);
-		
+
 		JLabel lblHourlyWage = new JLabel("Hourly Wage");
 		lblHourlyWage.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblHourlyWage = new GridBagConstraints();
@@ -478,7 +480,7 @@ public class MainMenu extends JFrame {
 		gbc_lblHourlyWage.gridx = 0;
 		gbc_lblHourlyWage.gridy = 1;
 		panel.add(lblHourlyWage, gbc_lblHourlyWage);
-		
+
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
@@ -489,7 +491,7 @@ public class MainMenu extends JFrame {
 		gbc_textField_3.gridx = 0;
 		gbc_textField_3.gridy = 2;
 		panel.add(textField_3, gbc_textField_3);
-		
+
 		JLabel label_2 = new JLabel("Deductable");
 		label_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
@@ -498,7 +500,7 @@ public class MainMenu extends JFrame {
 		gbc_label_2.gridx = 0;
 		gbc_label_2.gridy = 3;
 		panel.add(label_2, gbc_label_2);
-		
+
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
@@ -509,7 +511,7 @@ public class MainMenu extends JFrame {
 		gbc_textField_4.gridx = 0;
 		gbc_textField_4.gridy = 4;
 		panel.add(textField_4, gbc_textField_4);
-		
+
 		JLabel lblHoursPerWeeks = new JLabel("Hours Per Weeks");
 		lblHoursPerWeeks.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblHoursPerWeeks = new GridBagConstraints();
@@ -518,7 +520,7 @@ public class MainMenu extends JFrame {
 		gbc_lblHoursPerWeeks.gridx = 0;
 		gbc_lblHoursPerWeeks.gridy = 5;
 		panel.add(lblHoursPerWeeks, gbc_lblHoursPerWeeks);
-		
+
 		textField_5 = new JTextField();
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
@@ -529,7 +531,7 @@ public class MainMenu extends JFrame {
 		gbc_textField_5.gridx = 0;
 		gbc_textField_5.gridy = 6;
 		panel.add(textField_5, gbc_textField_5);
-		
+
 		JLabel lblWeeksPerYear = new JLabel("Weeks Per Year");
 		lblWeeksPerYear.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblWeeksPerYear = new GridBagConstraints();
@@ -537,7 +539,7 @@ public class MainMenu extends JFrame {
 		gbc_lblWeeksPerYear.gridx = 0;
 		gbc_lblWeeksPerYear.gridy = 7;
 		panel.add(lblWeeksPerYear, gbc_lblWeeksPerYear);
-		
+
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
 		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
@@ -548,7 +550,7 @@ public class MainMenu extends JFrame {
 		gbc_textField_6.gridy = 8;
 		panel.add(textField_6, gbc_textField_6);
 		textField_6.setColumns(10);
-		
+
 		JLabel lblNewLabel = new JLabel("Work Term");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -556,7 +558,7 @@ public class MainMenu extends JFrame {
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 9;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
-		
+
 		textField_7 = new JTextField();
 		textField_7.setEditable(false);
 		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
@@ -621,6 +623,7 @@ public class MainMenu extends JFrame {
 		employeeList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				selected = employeeList.getSelectedValue();
+				Database.showEmployee(listToNum(selected));
 			}
 		});
 		employeeList.setVisibleRowCount(21);
@@ -695,5 +698,15 @@ public class MainMenu extends JFrame {
 			System.out.println("Failed to parse " + split[0] + " as an employee number.");
 			return -1;
 		}
+	}
+	
+	public void showInfo(Employee view){
+		textEmployeeID.setText(Integer.toString(view.getNum()));
+		textName.setText(view.getFirst() + view.getLast());
+		textLocation.setText(view.getWorkLoc());
+		textGender.setText(view.getSex());
+	}
+	public void showFullTimeInfo(FullTimeEmployee view){
+		
 	}
 }

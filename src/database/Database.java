@@ -197,6 +197,14 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void showEmployee (int target) {
+		try {
+			menu.showInfo(table.searchEmployee(target));	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Translates a employee data string read from a database file into an
