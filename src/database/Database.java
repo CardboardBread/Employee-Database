@@ -179,8 +179,8 @@ public class Database {
 		menu.populate(table.toList());
 		return old;
 	}
-	
-	public static void newEmployee () {
+
+	public static void newEmployee() {
 		try {
 			Record frame = new Record("New Employee...", null);
 			frame.setVisible(true);
@@ -188,8 +188,8 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void editEmployee (int target) {
+
+	public static void editEmployee(int target) {
 		try {
 			Record frame = new Record("Edit Employee...", table.searchEmployee(target));
 			frame.setVisible(true);
@@ -197,10 +197,10 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void showEmployee (int target) {
+
+	public static void showEmployee(int target) {
 		try {
-			menu.showInfo(table.searchEmployee(target));	
+			menu.showInfo(table.searchEmployee(target));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

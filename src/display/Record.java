@@ -45,10 +45,10 @@ public class Record extends JFrame {
 	private final int yLength = 370;
 
 	private JPanel contentPane;
-	private JTextField nameEntryField;
-	private JTextField identEntryField;
-	private JComboBox<String> sexEntryField;
-	private JComboBox<String> workEntryField;
+	private JTextField nameField;
+	private JTextField identField;
+	private JComboBox<String> sexField;
+	private JComboBox<String> workField;
 	private JRadioButton partTimeButton;
 	private JRadioButton fullTimeButton;
 	private JTextField fullDeductibleField;
@@ -84,9 +84,9 @@ public class Record extends JFrame {
 	private String yearlyWage;
 
 	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
+	 * Test the application.
+	 */
+	public static void test() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -129,12 +129,12 @@ public class Record extends JFrame {
 			ident = Integer.toString(subject.getNum());
 			sex = subject.getSex();
 			workLocation = subject.getWorkLoc();
-			if (subject.getClass() == database.FullTimeEmployee.class) {
+			if (subject.getClass() == FullTimeEmployee.class) {
 				fullDeductible = Float.toString(((FullTimeEmployee) subject).getDeductible());
 				salary = Float.toString(((FullTimeEmployee) subject).getSalary());
 				seniority = Integer.toString(((FullTimeEmployee) subject).getSeniority());
 				annual = Float.toString(((FullTimeEmployee) subject).calcAnnualSalary());
-			} else if (subject.getClass() == database.PartTimeEmployee.class) {
+			} else if (subject.getClass() == PartTimeEmployee.class) {
 				partDeductible = Float.toString(((PartTimeEmployee) subject).getDeductible());
 				workTerm = Integer.toString(((PartTimeEmployee) subject).getWorkTerm());
 				hourlyWage = Float.toString(((PartTimeEmployee) subject).getHourlyWage());
@@ -162,44 +162,44 @@ public class Record extends JFrame {
 			yearlyWage = "0";
 		}
 
-		JLabel nameField = new JLabel("Employee Name:");
-		GridBagConstraints gbc_nameField = new GridBagConstraints();
-		gbc_nameField.insets = new Insets(5, 5, 5, 5);
-		gbc_nameField.anchor = GridBagConstraints.EAST;
-		gbc_nameField.gridx = 0;
-		gbc_nameField.gridy = 0;
-		contentPane.add(nameField, gbc_nameField);
+		JLabel nameLabel = new JLabel("Employee Name:");
+		GridBagConstraints gbc_nameLabel = new GridBagConstraints();
+		gbc_nameLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_nameLabel.anchor = GridBagConstraints.EAST;
+		gbc_nameLabel.gridx = 0;
+		gbc_nameLabel.gridy = 0;
+		contentPane.add(nameLabel, gbc_nameLabel);
 
-		nameEntryField = new JTextField();
+		nameField = new JTextField();
 		if (!firstName.isEmpty()) {
-			nameEntryField.setText(firstName);
+			nameField.setText(firstName);
 		}
 		if (!lastName.isEmpty()) {
-			nameEntryField.setText(nameEntryField.getText() + " " + lastName);
+			nameField.setText(nameField.getText() + " " + lastName);
 		}
-		addChangeListener(nameEntryField, e -> {
-			String[] split = nameEntryField.getText().split(" ");
+		addChangeListener(nameField, e -> {
+			String[] split = nameField.getText().split(" ");
 			firstName = split[0];
 			if (split.length > 1) {
 				lastName = split[split.length - 1];
 			}
 		});
-		GridBagConstraints gbc_nameEntryField = new GridBagConstraints();
-		gbc_nameEntryField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_nameEntryField.gridwidth = 2;
-		gbc_nameEntryField.insets = new Insets(5, 0, 5, 0);
-		gbc_nameEntryField.gridx = 2;
-		gbc_nameEntryField.gridy = 0;
-		contentPane.add(nameEntryField, gbc_nameEntryField);
-		nameEntryField.setColumns(10);
+		GridBagConstraints gbc_nameField = new GridBagConstraints();
+		gbc_nameField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_nameField.gridwidth = 2;
+		gbc_nameField.insets = new Insets(5, 0, 5, 0);
+		gbc_nameField.gridx = 2;
+		gbc_nameField.gridy = 0;
+		contentPane.add(nameField, gbc_nameField);
+		nameField.setColumns(10);
 
-		JLabel identField = new JLabel("Employee ID:");
-		GridBagConstraints gbc_identField = new GridBagConstraints();
-		gbc_identField.anchor = GridBagConstraints.EAST;
-		gbc_identField.insets = new Insets(0, 0, 5, 5);
-		gbc_identField.gridx = 0;
-		gbc_identField.gridy = 1;
-		contentPane.add(identField, gbc_identField);
+		JLabel identLabel = new JLabel("Employee ID:");
+		GridBagConstraints gbc_identLabel = new GridBagConstraints();
+		gbc_identLabel.anchor = GridBagConstraints.EAST;
+		gbc_identLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_identLabel.gridx = 0;
+		gbc_identLabel.gridy = 1;
+		contentPane.add(identLabel, gbc_identLabel);
 
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
@@ -208,69 +208,69 @@ public class Record extends JFrame {
 		gbc_horizontalStrut.gridy = 1;
 		contentPane.add(horizontalStrut, gbc_horizontalStrut);
 
-		identEntryField = new JTextField();
-		identEntryField.setText(ident);
-		addChangeListener(identEntryField, e -> ident = identEntryField.getText());
-		GridBagConstraints gbc_identEntryField = new GridBagConstraints();
-		gbc_identEntryField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_identEntryField.gridwidth = 2;
-		gbc_identEntryField.insets = new Insets(0, 0, 5, 0);
-		gbc_identEntryField.gridx = 2;
-		gbc_identEntryField.gridy = 1;
-		contentPane.add(identEntryField, gbc_identEntryField);
-		identEntryField.setColumns(10);
+		identField = new JTextField();
+		identField.setText(ident);
+		addChangeListener(identField, e -> ident = identField.getText());
+		GridBagConstraints gbc_identField = new GridBagConstraints();
+		gbc_identField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_identField.gridwidth = 2;
+		gbc_identField.insets = new Insets(0, 0, 5, 0);
+		gbc_identField.gridx = 2;
+		gbc_identField.gridy = 1;
+		contentPane.add(identField, gbc_identField);
+		identField.setColumns(10);
 
-		JLabel workField = new JLabel("Work Location:");
+		JLabel workLabel = new JLabel("Work Location:");
+		GridBagConstraints gbc_workLabel = new GridBagConstraints();
+		gbc_workLabel.anchor = GridBagConstraints.EAST;
+		gbc_workLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_workLabel.gridx = 0;
+		gbc_workLabel.gridy = 2;
+		contentPane.add(workLabel, gbc_workLabel);
+
+		workField = new JComboBox<String>();
+		workField.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "Brampton", "Burlington", "Etobicoke", "Markham", "Milton", "Mississauga", "North York",
+						"Oakville", "Richmond Hill", "Scarborough", "Toronto", "Vaughan" }));
+		workField.setEditable(true);
+		workField.setSelectedItem(workLocation);
+		workField.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				workLocation = (String) workField.getSelectedItem();
+			}
+		});
 		GridBagConstraints gbc_workField = new GridBagConstraints();
-		gbc_workField.anchor = GridBagConstraints.EAST;
-		gbc_workField.insets = new Insets(0, 0, 5, 5);
-		gbc_workField.gridx = 0;
+		gbc_workField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_workField.insets = new Insets(0, 0, 5, 0);
+		gbc_workField.gridwidth = 2;
+		gbc_workField.gridx = 2;
 		gbc_workField.gridy = 2;
 		contentPane.add(workField, gbc_workField);
 
-		workEntryField = new JComboBox<String>();
-		workEntryField.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Brampton", "Burlington", "Etobicoke", "Markham", "Milton", "Mississauga", "North York",
-						"Oakville", "Richmond Hill", "Scarborough", "Toronto", "Vaughan" }));
-		workEntryField.setEditable(true);
-		workEntryField.setSelectedItem(workLocation);
-		workEntryField.addItemListener(new ItemListener() {
+		JLabel sexLabel = new JLabel("Sex:");
+		GridBagConstraints gbc_sexLabel = new GridBagConstraints();
+		gbc_sexLabel.anchor = GridBagConstraints.EAST;
+		gbc_sexLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_sexLabel.gridx = 0;
+		gbc_sexLabel.gridy = 3;
+		contentPane.add(sexLabel, gbc_sexLabel);
+
+		sexField = new JComboBox<String>();
+		sexField.setModel(new DefaultComboBoxModel<String>(new String[] { "Male", "Female", "Other" }));
+		sexField.setEditable(true);
+		sexField.setSelectedItem(sex);
+		sexField.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				workLocation = (String) workEntryField.getSelectedItem();
+				sex = (String) sexField.getSelectedItem();
 			}
 		});
-		GridBagConstraints gbc_workEntryField = new GridBagConstraints();
-		gbc_workEntryField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_workEntryField.insets = new Insets(0, 0, 5, 0);
-		gbc_workEntryField.gridwidth = 2;
-		gbc_workEntryField.gridx = 2;
-		gbc_workEntryField.gridy = 2;
-		contentPane.add(workEntryField, gbc_workEntryField);
-
-		JLabel sexField = new JLabel("Sex:");
 		GridBagConstraints gbc_sexField = new GridBagConstraints();
-		gbc_sexField.anchor = GridBagConstraints.EAST;
-		gbc_sexField.insets = new Insets(0, 0, 5, 5);
-		gbc_sexField.gridx = 0;
+		gbc_sexField.gridwidth = 2;
+		gbc_sexField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_sexField.insets = new Insets(0, 0, 5, 0);
+		gbc_sexField.gridx = 2;
 		gbc_sexField.gridy = 3;
 		contentPane.add(sexField, gbc_sexField);
-
-		sexEntryField = new JComboBox<String>();
-		sexEntryField.setModel(new DefaultComboBoxModel<String>(new String[] { "Male", "Female", "Other" }));
-		sexEntryField.setEditable(true);
-		sexEntryField.setSelectedItem(sex);
-		sexEntryField.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				sex = (String) sexEntryField.getSelectedItem();
-			}
-		});
-		GridBagConstraints gbc_sexEntryField = new GridBagConstraints();
-		gbc_sexEntryField.gridwidth = 2;
-		gbc_sexEntryField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_sexEntryField.insets = new Insets(0, 0, 5, 0);
-		gbc_sexEntryField.gridx = 2;
-		gbc_sexEntryField.gridy = 3;
-		contentPane.add(sexEntryField, gbc_sexEntryField);
 
 		JLabel typeField = new JLabel("Employee Type:");
 		GridBagConstraints gbc_typeField = new GridBagConstraints();
@@ -654,7 +654,7 @@ public class Record extends JFrame {
 		try {
 			Float.parseFloat(str);
 		} catch (NumberFormatException nfe) {
-			nfe.printStackTrace();
+			// nfe.printStackTrace();
 			return false;
 		}
 		return true;
@@ -664,7 +664,7 @@ public class Record extends JFrame {
 		try {
 			Integer.parseInt(str);
 		} catch (NumberFormatException nfe) {
-			nfe.printStackTrace();
+			// nfe.printStackTrace();
 			return false;
 		}
 		return true;

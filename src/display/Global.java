@@ -33,9 +33,9 @@ public class Global extends JFrame {
 	private JLabel lbltxt;
 
 	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
+	 * Test the application.
+	 */
+	public static void test() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -109,7 +109,7 @@ public class Global extends JFrame {
 				submit();
 			}
 		});
-		
+
 		lbltxt = new JLabel(".txt");
 		GridBagConstraints gbc_lbltxt = new GridBagConstraints();
 		gbc_lbltxt.insets = new Insets(0, 0, 5, 0);
