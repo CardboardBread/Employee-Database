@@ -37,7 +37,7 @@ public class Database {
 		System.out.println("Creating a new Database.");
 		table = new OpenHashTable(databaseWidth);
 		workingFile = null;
-		menu.populate(table.toList());
+		menu.clearPage();
 	}
 
 	/**

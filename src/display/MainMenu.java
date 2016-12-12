@@ -757,4 +757,9 @@ public class MainMenu extends JFrame {
 			displayPage(pageSelected);
 		}
 	}
+	
+	public void clearPage() {
+		String[] data = new String[maxPageLength];
+		employeeList.setListData(data);
+	}
 }
