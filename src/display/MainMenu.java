@@ -56,6 +56,8 @@ public class MainMenu extends JFrame {
 	private JTextField partHPWField;
 	private JTextField partHPYField;
 	private JTextField partWorkField;
+	private JPanel panelFullTimeInfo;
+	private JPanel panelPartTimeInfo;
 
 	private String selected;
 	private ArrayList<Employee[]> employees;
@@ -384,7 +386,7 @@ public class MainMenu extends JFrame {
 		ViewContainer.add(panelExtendedEmployeeInfo, gbc_panelExtendedEmployeeInfo);
 		panelExtendedEmployeeInfo.setLayout(new CardLayout(0, 0));
 
-		JPanel panelFullTimeInfo = new JPanel();
+		panelFullTimeInfo = new JPanel();
 		panelExtendedEmployeeInfo.add(panelFullTimeInfo, "name_3892476439700159");
 		GridBagLayout gbl_panelFullTimeInfo = new GridBagLayout();
 		gbl_panelFullTimeInfo.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -463,7 +465,7 @@ public class MainMenu extends JFrame {
 		panelFullTimeInfo.add(fullSeniorityField, gbc_fullSeniorityField);
 		fullSeniorityField.setColumns(10);
 
-		JPanel panelPartTimeInfo = new JPanel();
+		panelPartTimeInfo = new JPanel();
 		panelExtendedEmployeeInfo.add(panelPartTimeInfo, "name_3892498524926794");
 
 		JPanel panel = new JPanel();
@@ -727,19 +729,23 @@ public class MainMenu extends JFrame {
 	private void expandInfo(Employee view) {
 		if (view != null) {
 			identField.setText(Integer.toString(view.getNum()));
-			nameField.setText(view.getFirst() + view.getLast());
+			nameField.setText(view.getFirst() + " " + view.getLast());
 			workLocationField.setText(view.getWorkLoc());
 			sexField.setText(view.getSex());
 			if (view.getClass() == FullTimeEmployee.class) {
 				fullDeductibleField.setText(Float.toString(((FullTimeEmployee) view).getDeductible()));
 				fullSalaryField.setText(Float.toString(((FullTimeEmployee) view).getSalary()));
 				fullSeniorityField.setText(Integer.toString(((FullTimeEmployee) view).getSeniority()));
+				panelPartTimeInfo.setVisible(false);
+				panelFullTimeInfo.setVisible(true);
 			} else if (view.getClass() == PartTimeEmployee.class) {
 				partDeductibleField.setText(Float.toString(((PartTimeEmployee) view).getDeductible()));
 				partWorkField.setText(Integer.toString(((PartTimeEmployee) view).getWorkTerm()));
 				partWageField.setText(Float.toString(((PartTimeEmployee) view).getHourlyWage()));
 				partHPWField.setText(Float.toString(((PartTimeEmployee) view).getHoursPerWeek()));
 				partHPYField.setText(Float.toString(((PartTimeEmployee) view).getHoursPerYear()));
+				panelPartTimeInfo.setVisible(true);
+				panelFullTimeInfo.setVisible(false);
 			}
 		}
 	}
