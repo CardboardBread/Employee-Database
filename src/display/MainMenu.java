@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -42,7 +44,6 @@ public class MainMenu extends JFrame {
 	private JPanel contentPane;
 	private JTextField searchField;
 	private JList<String> employeeList;
-	private String selected;
 	private JTextField identField;
 	private JTextField nameField;
 	private JTextField workLocationField;
@@ -55,7 +56,10 @@ public class MainMenu extends JFrame {
 	private JTextField partHPWField;
 	private JTextField partHPYField;
 	private JTextField partWorkField;
-	private JTable employeeTable;
+
+	private String selected;
+	private ArrayList<Employee[]> employees;
+	private int pageSelected;
 
 	/**
 	 * Test the application.
@@ -262,6 +266,8 @@ public class MainMenu extends JFrame {
 		Record.addChangeListener(searchField, e -> {
 			if (isInt(searchField.getText())) {
 				search(Integer.parseInt(searchField.getText()));
+			} else {
+				populate(Database.table.toList());
 			}
 		});
 		GridBagConstraints gbc_searchField = new GridBagConstraints();
@@ -587,14 +593,15 @@ public class MainMenu extends JFrame {
 		contentPane.add(ListContainer, gbc_ListContainer);
 		GridBagLayout gbl_ListContainer = new GridBagLayout();
 		gbl_ListContainer.columnWidths = new int[] { 0 };
-		gbl_ListContainer.rowHeights = new int[] { 0, 0, 0 };
+		gbl_ListContainer.rowHeights = new int[] {0, 0};
 		gbl_ListContainer.columnWeights = new double[] { 1.0, 0.0 };
-		gbl_ListContainer.rowWeights = new double[] { 0.0, 0.0, 1.0 };
+		gbl_ListContainer.rowWeights = new double[] { 1.0, 0.0 };
 		ListContainer.setLayout(gbl_ListContainer);
 
 		JButton previousPageButton = new JButton("Previous");
 		previousPageButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				previousPage();
 			}
 		});
 		GridBagConstraints gbc_previousPageButton = new GridBagConstraints();
@@ -607,6 +614,7 @@ public class MainMenu extends JFrame {
 		JButton nextPageButton = new JButton("Next");
 		nextPageButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				nextPage();
 			}
 		});
 		GridBagConstraints gbc_nextPageButton = new GridBagConstraints();
@@ -626,12 +634,11 @@ public class MainMenu extends JFrame {
 		ListContainer.add(ListHolder, gbc_ListHolder);
 
 		employeeList = new JList<String>();
-		employeeList.setVisible(false);
 		employeeList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
 				selected = employeeList.getSelectedValue();
-				Database.showEmployee(listToNum(selected));
+				expandInfo(Database.table.searchEmployee(listToNum(selected)));
 			}
 		});
 		employeeList.setVisibleRowCount(21);
@@ -649,98 +656,61 @@ public class MainMenu extends JFrame {
 				return values[index];
 			}
 		});
-		// ListHolder.add(employeeList);
-
-		employeeTable = new JTable();
-		employeeTable.setShowVerticalLines(false);
-		employeeTable.getColumnModel().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent arg0) {
-				if (employeeTable.getSelectedRow() == 0) {
-
-				} else if (employeeTable.getSelectedRow() == 1) {
-
-				} else if (employeeTable.getSelectedRow() == 2) {
-
-				}
-			}
-		});
-		employeeTable.setCellSelectionEnabled(true);
-		employeeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		employeeTable.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null }, { null, null, null }, { null, null, null }, { null, null, null },
-						{ null, null, null }, { null, null, null }, { null, null, null }, { null, null, null },
-						{ null, null, null }, { null, null, null }, { null, null, null }, { null, null, null },
-						{ null, null, null }, { null, null, null }, { null, null, null }, { null, null, null },
-						{ null, null, null }, { null, null, null }, { null, null, null }, { null, null, null },
-						{ null, null, null }, { null, null, null }, },
-				new String[] { "First Name", "Last Name", "Idenification" }) {
-			private static final long serialVersionUID = 3827702599018838934L;
-			Class<String>[] columnTypes = new Class[] { String.class, String.class, String.class };
-
-			public Class<String> getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		ListHolder.add(employeeTable);
-
+		ListHolder.add(employeeList);
 	}
 
-	public boolean isInt(String str) {
-		try {
-			Integer.parseInt(str);
-		} catch (NumberFormatException nfe) {
-			// nfe.printStackTrace();
-			return false;
-		}
-		return true;
+	private boolean isInt(String str) {
+		if (str.isEmpty()) return false;
+		return str.matches("[+-]?\\d*(\\.\\d+)?");
 	}
 
-	public void search(int search) {
+	private void search(int search) {
 		ArrayList<Employee> formatted = new ArrayList<Employee>();
-		formatted.add(database.Database.table.searchEmployee(search));
-		int distance = 1;
-		while (formatted.size() < maxPageLength) {
-			Employee above = database.Database.table.searchEmployee(search + distance);
-			Employee below = database.Database.table.searchEmployee(search - distance);
-			if (above != null) {
-				formatted.add(above);
-			}
-			if (below != null) {
-				formatted.add(below);
-			}
-			distance++;
+		Employee result = Database.table.searchEmployee(search);
+		if (result != null) {
+			formatted.add(result);
+			populate(formatted);
 		}
 	}
 
 	public void populate(ArrayList<Employee> in) {
-		ArrayList<String> data = new ArrayList<String>();
-		for (Employee emp : in) {
-			data.add(emp.toString());
+		employees = new ArrayList<Employee[]>();
+		if (!in.isEmpty()) {
+			int step = 0;
+			float size = in.size();
+			float length = maxPageLength;
+			int pages = (int) Math.ceil(size / length);
+			while (in.size() < pages * maxPageLength) {
+				in.add(null);
+			}
+			for (int i = 0; i < pages; i++) {
+				Employee[] page = new Employee[maxPageLength];
+				for (int k = 0; k < page.length; k++) {
+					page[k] = in.get(step);
+					step++;
+				}
+				employees.add(page);
+			}
+			pageSelected = 0;
+			displayPage(pageSelected);
 		}
-		while (data.size() < maxPageLength) {
-			data.add("");
-		}
-		while (data.size() > maxPageLength) {
-			data.remove(data.size() - 1);
-		}
-		employeeList.setListData(data.toArray(new String[data.size()]));
 	}
-	
-	public void populateTable(ArrayList<Employee> in) {
-		TableModel model;
+
+	private void displayPage(int pageNum) {
+		String[] data = new String[maxPageLength];
+		Employee[] emplist = employees.get(pageNum);
 		for (int i = 0; i < maxPageLength; i++) {
-			String[] emp = new String[] {Integer.toString(in.get(i).getNum()), in.get(i).getFirst(), in.get(i).getLast()};
+			try {
+				data[i] = emplist[i].toString();
+			} catch (NullPointerException npe) {
+				data[i] = "";
+			}
 			
 		}
-
+		employeeList.setListData(data);
 	}
 
-	public JList<String> getEmployeeList() {
-		return employeeList;
-	}
-
-	public int listToNum(String listItem) {
+	private int listToNum(String listItem) {
 		if (listItem != null && !listItem.isEmpty()) {
 			String[] split = listItem.split(" ");
 			try {
@@ -754,7 +724,7 @@ public class MainMenu extends JFrame {
 		}
 	}
 
-	public void showInfo(Employee view) {
+	private void expandInfo(Employee view) {
 		if (view != null) {
 			identField.setText(Integer.toString(view.getNum()));
 			nameField.setText(view.getFirst() + view.getLast());
@@ -771,6 +741,20 @@ public class MainMenu extends JFrame {
 				partHPWField.setText(Float.toString(((PartTimeEmployee) view).getHoursPerWeek()));
 				partHPYField.setText(Float.toString(((PartTimeEmployee) view).getHoursPerYear()));
 			}
+		}
+	}
+
+	private void nextPage() {
+		if (pageSelected + 1 < employees.size()) {
+			pageSelected++;
+			displayPage(pageSelected);
+		}
+	}
+
+	private void previousPage() {
+		if (pageSelected > 0) {
+			pageSelected--;
+			displayPage(pageSelected);
 		}
 	}
 }

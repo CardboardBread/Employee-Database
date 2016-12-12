@@ -16,6 +16,8 @@ public class Database {
 	public static String workingFile;
 	public static OpenHashTable table;
 	public static MainMenu menu;
+	public static Global dbController;
+	public static Record recordInterface;
 
 	public static void main(String[] args) {
 		try {
@@ -55,8 +57,8 @@ public class Database {
 	 */
 	public static void saveDatabaseAs() {
 		try {
-			Global frame = new Global("Save As...", true, "");
-			frame.setVisible(true);
+			dbController = new Global("Save As...", true, "");
+			dbController.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,8 +97,8 @@ public class Database {
 	 */
 	public static void loadDatabase() {
 		try {
-			Global frame = new Global("Load...", false, "");
-			frame.setVisible(true);
+			dbController = new Global("Load...", false, "");
+			dbController.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -182,8 +184,8 @@ public class Database {
 
 	public static void newEmployee() {
 		try {
-			Record frame = new Record("New Employee...", null);
-			frame.setVisible(true);
+			recordInterface = new Record("New Employee...", null);
+			recordInterface.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -191,16 +193,8 @@ public class Database {
 
 	public static void editEmployee(int target) {
 		try {
-			Record frame = new Record("Edit Employee...", table.searchEmployee(target));
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void showEmployee(int target) {
-		try {
-			menu.showInfo(table.searchEmployee(target));
+			recordInterface = new Record("Edit Employee...", table.searchEmployee(target));
+			recordInterface.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
