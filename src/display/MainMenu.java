@@ -733,13 +733,13 @@ public class MainMenu extends JFrame {
 			workLocationField.setText(view.getWorkLoc());
 			sexField.setText(view.getSex());
 			if (view.getClass() == FullTimeEmployee.class) {
-				fullDeductibleField.setText(Float.toString(((FullTimeEmployee) view).getDeductible()));
+				fullDeductibleField.setText(Float.toString(100 * ((FullTimeEmployee) view).getDeductible()) + "%");
 				fullSalaryField.setText(Float.toString(((FullTimeEmployee) view).getSalary()));
 				fullSeniorityField.setText(Integer.toString(((FullTimeEmployee) view).getSeniority()));
 				panelPartTimeInfo.setVisible(false);
 				panelFullTimeInfo.setVisible(true);
 			} else if (view.getClass() == PartTimeEmployee.class) {
-				partDeductibleField.setText(Float.toString(((PartTimeEmployee) view).getDeductible()));
+				partDeductibleField.setText(Float.toString(100 * ((PartTimeEmployee) view).getDeductible()) + "%");
 				partWorkField.setText(Integer.toString(((PartTimeEmployee) view).getWorkTerm()));
 				partWageField.setText(Float.toString(((PartTimeEmployee) view).getHourlyWage()));
 				partHPWField.setText(Float.toString(((PartTimeEmployee) view).getHoursPerWeek()));
